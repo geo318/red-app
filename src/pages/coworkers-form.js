@@ -11,10 +11,8 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           placeholder : 'გრიშა',
           label : 'სახელი',
           required : true,
-          errorMessage : 'blabla',
-          pattern : "^[A-Za-z0-9]{3,16}$",
           error : {
-            pattern : '',
+            pattern : '^[A-Za-z0-9]{3,16}$',
             message : 'მინიმუმ 2 სიმბოლო',
           },
           message : 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
