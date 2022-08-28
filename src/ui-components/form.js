@@ -6,10 +6,11 @@ export default function Form({render}) {
         console.log(Object.fromEntries(data))
     }
 
+    
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} onInvalid={e => e.preventDefault()}>
             {render}
-            <button type="submit">submit</button>
+            <button>submit</button>
         </form>
     )
 }

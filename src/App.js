@@ -10,6 +10,7 @@ import Error from './pages/error';
 import { useState } from 'react';
 
 function App() {
+  const [erros, setErrors] = useState([])
   const [values, setValues] = useState({
     name : '',
     surname: '',
