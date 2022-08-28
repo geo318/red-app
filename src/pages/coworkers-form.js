@@ -12,8 +12,10 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           label : 'სახელი',
           required : true,
           error : {
-            pattern : '^[A-Za-z0-9]{3,16}$',
+            pattern : '^[\u10A0-\u10FF]+$',
             message : 'მინიმუმ 2 სიმბოლო',
+            pattern_1: '.{3,}$',
+            message_1 : 'გამოიყენე ქართული ასოები',
           },
           message : 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
         },
@@ -25,12 +27,10 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           label : 'გვარი',
           required : true,
           error : {
-            pattern : '',
+            pattern : '^[\u10A0-\u10FF]+$',
             message : 'მინიმუმ 2 სიმბოლო',
-          },
-          error_1 : {
-            pattern : '',
-            message : 'გამოიყენე ქართული ასოები',
+            pattern_1: '.{3,}$',
+            message_1 : 'გამოიყენე ქართული ასოები',
           },
           message : 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
         },
@@ -58,7 +58,7 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           label : 'მეილი',
           required : true,
           error : {
-            pattern : '',
+            pattern : '^.+@redberry.ge$',
             message : 'მეილი არასწორია',
           },
           message : 'უნდა მთავრდებოდეს @redberry.ge-ით',
@@ -71,7 +71,7 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           label : 'ტელეფონის ნომერი',
           required : true,
           error : {
-            pattern : '',
+            pattern : /^(\+995)(5\d{8})$/,
             message : 'ნომრის ფორმატი არასწორია',
           },
           message : 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს',

@@ -1,7 +1,7 @@
 export default function Error({error}) {
     return (
         <>
-            <div>{error.message}</div>
+            <span className="error">{error}</span>
         </>
     )
 }
