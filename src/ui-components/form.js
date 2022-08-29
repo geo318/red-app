@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { inputValues } from "../contexts/input-values";
 
 export default function Form({render}) {
-    const {errors} = useContext(inputValues);
+    const {errors, setBulkValidation} = useContext(inputValues);
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -11,11 +11,14 @@ export default function Form({render}) {
         console.log(Object.fromEntries(data))
     }
 
+    const handleBlur = () => {
+        setBulkValidation(true)
+    }
 
     return (
         <form onSubmit={handleSubmit} onInvalid={e => e.preventDefault()}>
             {render}
-            <button>submit</button>
+            <button onClick = {handleBlur}>submit</button>
         </form>
     )
 }

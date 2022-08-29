@@ -4,11 +4,10 @@ import { inputValues } from "../contexts/input-values";
 import { getData } from "../api/formdata";
 
 export default function Input({ id, label, value, error, message, message_phone, handleChange, sub_type, data_url, ...inputProps }) {
-    const {setErrors} = useContext(inputValues);
+    const { setErrors, bulkValidation } = useContext(inputValues);
     const [validation, setValidation] = useState({});
     const [focus, setFocus] = useState(false)
     const [data, setData] = useState([])
-
 
     useEffect(() => {
         if(data_url) {
@@ -43,14 +42,14 @@ export default function Input({ id, label, value, error, message, message_phone,
         <>
             <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`}>
                 { label && <label>{label}</label> }
-                <input className = {inputProps.required && focus && value === '' ? 'border-error' : ''} id = {id} {...inputProps} value = {value} onChange = {handleChange} onBlur={handleFocus} readOnly={sub_type ? true : false}/>
+                <input className = {inputProps.required && (focus || bulkValidation) && value === '' ? 'border-error' : ''} id = {id} {...inputProps} value = {value} onChange = {handleChange} onBlur={handleFocus} readOnly={sub_type ? true : false}/>
                     {
                         data?.map(el => 
                             <li key={el.id} id={el.id} onClick={()=>handleChange({target : {name: inputProps.name, value: el.name}})}>
                                {el.name}
                             </li>)
                     }
-                { ((error && focus) && ((validation.pattern || validation.pattern_1) && <Error error = { `${validation.pattern ? `${error?.message}` : ''}${validation.pattern && validation.pattern_1 ? ', ' : ''}${validation.pattern_1 ? `${error?.message_1}` : ''}` } />)) || (message && <span>{message}</span>) }
+                { ((error && (focus || bulkValidation)) && ((validation.pattern || validation.pattern_1) && <Error error = { `${validation.pattern ? `${error?.message}` : ''}${validation.pattern && validation.pattern_1 ? ', ' : ''}${validation.pattern_1 ? `${error?.message_1}` : ''}` } />)) || (message && <span>{message}</span>) }
             </div>
         </>
     )

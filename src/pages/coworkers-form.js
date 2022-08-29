@@ -5,7 +5,7 @@ import { useState } from "react"
 
 export default function CoworkersForm({values, setValues, handleChange}) {
     const [errors, setErrors] = useState(true)
-
+    const [bulkValidation, setBulkValidation] = useState(false)
     const coworkersInputs = [
         {
           id : 1,
@@ -15,7 +15,7 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           label : 'სახელი',
           required : true,
           error : {
-            pattern : /.{3,}$/,
+            pattern : /.{2,}$/,
             message : 'მინიმუმ 2 სიმბოლო',
             pattern_1: /^[\u10A0-\u10FF]+$/,
             message_1 : 'გამოიყენე ქართული ასოები',
@@ -30,7 +30,7 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           label : 'გვარი',
           required : true,
           error : {
-            pattern : /.{3,}$/,
+            pattern : /.{2,}$/,
             message : 'მინიმუმ 2 სიმბოლო',
             pattern_1: /^[\u10A0-\u10FF]+$/,
             message_1 : 'გამოიყენე ქართული ასოები',
@@ -86,7 +86,7 @@ export default function CoworkersForm({values, setValues, handleChange}) {
 
     return(
         <>
-            <inputValues.Provider value = {{errors, setErrors}}>
+            <inputValues.Provider value = {{errors, setErrors, setBulkValidation, bulkValidation}}>
                 <Form render = 
                     {
                         coworkersInputs.map((e,i) => 
