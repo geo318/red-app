@@ -1,7 +1,7 @@
 export default function Error({error}) {
     return (
         <>
-            <span className="error">{error}</span>
+            <span style={{'color':'red'}} className="error">{error}</span>
         </>
     )
 }

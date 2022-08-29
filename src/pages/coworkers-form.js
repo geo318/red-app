@@ -1,7 +1,10 @@
 import Form from "../ui-components/form"
 import Input from "../ui-components/input"
+import { inputValues } from "../contexts/input-values"
+import { useState } from "react"
 
 export default function CoworkersForm({values, setValues, handleChange}) {
+    const [errors, setErrors] = useState(true)
 
     const coworkersInputs = [
         {
@@ -12,9 +15,9 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           label : 'სახელი',
           required : true,
           error : {
-            pattern : '^[\u10A0-\u10FF]+$',
+            pattern : /.{3,}$/,
             message : 'მინიმუმ 2 სიმბოლო',
-            pattern_1: '.{3,}$',
+            pattern_1: /^[\u10A0-\u10FF]+$/,
             message_1 : 'გამოიყენე ქართული ასოები',
           },
           message : 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
@@ -27,9 +30,9 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           label : 'გვარი',
           required : true,
           error : {
-            pattern : '^[\u10A0-\u10FF]+$',
+            pattern : /.{3,}$/,
             message : 'მინიმუმ 2 სიმბოლო',
-            pattern_1: '.{3,}$',
+            pattern_1: /^[\u10A0-\u10FF]+$/,
             message_1 : 'გამოიყენე ქართული ასოები',
           },
           message : 'მინიმუმ 2 სიმბოლო, ქართული ასოები'
@@ -58,7 +61,7 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           label : 'მეილი',
           required : true,
           error : {
-            pattern : '^.+@redberry.ge$',
+            pattern : /^.+@redberry.ge$/,
             message : 'მეილი არასწორია',
           },
           message : 'უნდა მთავრდებოდეს @redberry.ge-ით',
@@ -81,13 +84,15 @@ export default function CoworkersForm({values, setValues, handleChange}) {
 
     return(
         <>
-            <Form render = 
-                {
-                    coworkersInputs.map((e,i) => 
-                        <Input key = {e.id} {...e} handleChange = {handleChange} value = {values[e.name]}/>
-                    )
-                }
-            />
+            <inputValues.Provider value = {{errors, setErrors}}>
+                <Form render = 
+                    {
+                        coworkersInputs.map((e,i) => 
+                            <Input key = {e.id} {...e} handleChange = {handleChange} value = {values[e.name]}/>
+                        )
+                    }
+                />
+            </inputValues.Provider>
         </>
     )
 }
