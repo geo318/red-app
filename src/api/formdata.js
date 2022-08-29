@@ -1,10 +1,7 @@
 import { fetchApiData } from "./fetchdata";
 
-export const getData = async () => {
-    const url = "";
-    const apiKey = ""
-    const urlToFetch = `${url}${apiKey}`
+export const getData = async (url,token) => {
 
-    const data = await fetchApiData(urlToFetch)
+    const data = await fetchApiData(url)
     return data
 }

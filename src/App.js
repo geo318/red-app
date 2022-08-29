@@ -37,7 +37,7 @@ function App() {
   const handleChange = (e) => {
     setValues({...values, [e.target.name] : e.target.value})
   }
-
+  console.log(values)
   return (
     <Router>
       <div className='main'>
