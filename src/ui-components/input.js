@@ -48,10 +48,12 @@ export default function Input({ id, label, value, error, message, message_phone,
         setFocus(true)
     }
 
+    const checkRadio = (inputProps.type === 'radio' && bulkValidation) && value === '';
+
     return (
         <>
             <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`}>
-                { label && <label className={inputProps.type === 'radio' && bulkValidation ? 'error-text' : ''}>{label} { inputProps.type === 'radio' && bulkValidation && <Icon render={errorSvg}/>}</label> }
+                { label && <label className={ checkRadio ? 'error-text' : ''}>{label} { checkRadio && <Icon render={errorSvg}/>}</label> }
                 <div className="input-wrap" onClick={handleSelect}>
                     {
                         inputProps.type !== 'radio' &&
@@ -65,8 +67,8 @@ export default function Input({ id, label, value, error, message, message_phone,
                         inputProps.type === 'radio' &&
                         radio_values.map((e,i) =>
                             <div key={i}>
-                                <label htmlFor={e}>{e}</label> 
-                                <input id={e} {...inputProps} />
+                                <label htmlFor={e}>{e.name}</label> 
+                                <input id={e.value} {...inputProps} value = {e.value} onChange={handleChange}/>
                             </div>
                         )
                     }

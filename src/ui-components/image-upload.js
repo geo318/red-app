@@ -9,7 +9,7 @@ export default function ImageUpload({name, text, buttonText}) {
     const [dragging, setDragging] = useState(false)
     const [image, setImage] = useState('')
     const [imageData,setImageData] = useState({})
-    const [imageError, setImageError] = useState(true)
+    const [imageError, setImageError] = useState(false)
     const { setErrors, bulkValidation } = useContext(inputValues);
 
     const handleDrag = () => {
@@ -63,11 +63,10 @@ export default function ImageUpload({name, text, buttonText}) {
                 {buttonText}
             </label>
         </button>;
-        console.log(!bulkValidation,bulkValidation)
 
     return (
         <div className="upload-wrapper">
-            <div className={`drag-area flx flx-vc flx-hc${dragging ? ' drag-active' : ''}${imageError ? ' border-error' : image ? ' border-none' : ''}`} 
+            <div className={`drag-area flx flx-vc flx-hc${dragging ? ' drag-active' : ''}${imageError || (bulkValidation && !image) ? ' border-error background-error' : image ? ' border-none' : ''}`} 
                 onDragOver={dragOver} 
                 onDragEnter={handleDrag} 
                 onDragLeave={handleDrag}  
@@ -77,8 +76,8 @@ export default function ImageUpload({name, text, buttonText}) {
                     image ?
                     <img src={`${image}`} alt=''/> : 
                     <div>
-                        {(bulkValidation || imageError) && <Icon render={error}/>}
-                        <span className={`${imageError ? 'error-text' : ''}`}>{text}</span>
+                        {((bulkValidation && !image) || imageError) && <Icon render={error}/>}
+                        <span className={`${imageError || (bulkValidation && !image) ? 'error-text' : ''}`}>{text}</span>
                         {uploadButton}
                     </div>
                 }

@@ -50,6 +50,9 @@
   border-color:red
 }
 
+.background-error {
+  background-color: rgba(255, 0, 0, 0.1);
+}
 .error-text {
   color:red
 }
