@@ -1,3 +1,75 @@
+.wrapper {
+  max-width: 1226px;
+  margin: 0 auto;
+}
+
+
+.upload-wrapper {
+  display: block;
+}
+
+.flx {
+  display: flex;
+}
+
+.flx-hc {
+  justify-content: center;
+}
+
+.flx-vc {
+  align-items: center;
+}
+
+.flx-r {
+  display: flex;
+  flex-direction: row;
+}
+.flx-c {
+  display: flex;
+  flex-direction: column;
+}
+
+.drag-area {
+  width: 878px;
+  height: 423px;
+  border: 1px dashed;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.drag-active {
+  border-style: solid;
+}
+
+.drag-area img {
+  max-width: 100%;
+  object-fit: cover;
+}
+
 .border-error {
   border-color:red
+}
+
+.error-text {
+  color:red
+}
+
+.border-none {
+  border: 0
+}
+
+.upload-button input {
+  display: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

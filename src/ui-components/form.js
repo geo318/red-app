@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { inputValues } from "../contexts/input-values";
+import { Link } from 'react-router-dom'
 
-export default function Form({render}) {
+export default function Form({render,link,text}) {
     const {errors, setBulkValidation} = useContext(inputValues);
     
     const handleSubmit = (e) => {
@@ -15,10 +16,19 @@ export default function Form({render}) {
         setBulkValidation(true)
     }
 
+    const button = <button type='submit' onClick = {handleBlur}>{text ? text : 'no text'}</button>;
+
     return (
         <form onSubmit={handleSubmit} onInvalid={e => e.preventDefault()}>
             {render}
-            <button onClick = {handleBlur}>submit</button>
+            {   
+                errors ?
+                button :
+                <Link to='/form/laptop'>
+                    {button}
+                </Link>
+            }
+            
         </form>
     )
 }

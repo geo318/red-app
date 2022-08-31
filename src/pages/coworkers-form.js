@@ -3,7 +3,7 @@ import Input from "../ui-components/input"
 import { inputValues } from "../contexts/input-values"
 import { useState } from "react"
 
-export default function CoworkersForm({values, setValues, handleChange}) {
+export default function CoworkersForm({values, handleChange}) {
     const [errors, setErrors] = useState(true)
     const [bulkValidation, setBulkValidation] = useState(false)
     const coworkersInputs = [
@@ -41,7 +41,7 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           id : 3,
           type : 'text',
           sub_type : 'select',
-          name : 'team',
+          name : 'team_id',
           placeholder : 'თიმი',
           required : true,
           data_url: 'https://pcfy.redberryinternship.ge/api/teams'
@@ -50,7 +50,7 @@ export default function CoworkersForm({values, setValues, handleChange}) {
           id : 4,
           type : 'text',
           sub_type : 'select',
-          name : 'position',
+          name : 'position_id',
           placeholder : 'პოზიცია',
           required : true,
           data_url: 'https://pcfy.redberryinternship.ge/api/positions'
@@ -71,7 +71,7 @@ export default function CoworkersForm({values, setValues, handleChange}) {
         {
           id : 6,
           type : 'phone',
-          name : 'phone',
+          name : 'phone_number',
           placeholder : '+995 598 00 07 01',
           label : 'ტელეფონის ნომერი',
           required : true,
@@ -87,7 +87,7 @@ export default function CoworkersForm({values, setValues, handleChange}) {
     return(
         <>
             <inputValues.Provider value = {{errors, setErrors, setBulkValidation, bulkValidation}}>
-                <Form render = 
+                <Form link = '/form/laptop' text='next' render = 
                     {
                         coworkersInputs.map((e,i) => 
                             <Input key = {e.id} {...e} handleChange = {handleChange} value = {values[e.name]}/>

@@ -13,21 +13,21 @@ function App() {
   const [values, setValues] = useState({
     name : '',
     surname: '',
-    team : '',
-    position: '',
+    team_id : '',
+    position_id: '',
     email : '',
-    phone : '',
-    photo : '',
+    phone_number : '',
+    laptop_image : '',
     laptop_name: '',
-    laptop_brand : '',
-    cpu: '',
-    cpu_core : '',
-    cpu_thread : '',
-    ram: '',
-    storage_type : '',
-    purchase_data : '',
-    price : '',
-    condition : '',
+    laptop_brand_id : '',
+    laptop_cpu: '',
+    laptop_cpu_cores : '',
+    laptop_cpu_threads : '',
+    laptop_ram: '',
+    laptop_hard_drive_type : '',
+    laptop_purchase_date : '',
+    laptop_price : '',
+    laptop_state : '',
   })
 
   const laptopInputs = [{
@@ -45,8 +45,8 @@ function App() {
         <div className='wrapper'>
           <Routes>                
             <Route exact path="/" element = {<Welcome/>}/>
-            <Route exact path="/form/coworkers" element = {<CoworkersForm handleChange = {handleChange} values = {values} setValues = {setValues} />}/>
-            <Route exact path="/form/laptop" element = {<LaptopForm/>}/>
+            <Route exact path="/form/coworkers" element = {<CoworkersForm handleChange = {handleChange} values = {values} />}/>
+            <Route exact path="/form/laptop" element = {<LaptopForm handleChange = {handleChange} values = {values}/>}/>
             <Route exact path="/form/success" element = {<Success/>}/>
             <Route path="/laptop-list/:laptop-id"  element = {<LaptopInfo/>}/>
             <Route exact path="/laptop-list"  element = {<List/>} />
