@@ -5,8 +5,7 @@ import { useEffect, useState } from "react"
 import ImageUpload from "../ui-components/image-upload"
 import gel from "../assets/images/gel.svg"
 
-export default function LaptopForm({values, handleChange}) {
-    const [errors, setErrors] = useState(true)
+export default function LaptopForm({values, handleChange, errors, setErrors}) {
     const [bulkValidation, setBulkValidation] = useState(false)
 
     const imageUploaderDetails = {name: 'laptop_image',text:'ჩააგდე ან ატვირთე ლეპტოპის ფოტო', buttonText: 'ატვირთე'}

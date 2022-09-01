@@ -11,6 +11,7 @@ import Error from './pages/error';
 import { PrivateRoutes } from './helpers/privateRoutes';
 
 function App() {
+  const [errors, setErrors] = useState(true)
   const [values, setValues] = useState({
     name : '',
     surname: '',
@@ -31,10 +32,6 @@ function App() {
     laptop_state : '',
   })
 
-  const laptopInputs = [{
-    
-  }]
-
   const handleChange = (e) => {
     setValues({...values, [e.target.name] : e.target.value})
   }
@@ -47,10 +44,10 @@ function App() {
         <div className='wrapper'>
           <Routes>                
             <Route exact path="/" element = {<Welcome/>}/>            
-            <Route exact path="/form/coworkers" element = {<CoworkersForm handleChange = {handleChange} values = {values} />}/>
-            <Route element = {<PrivateRoutes fallback ="/form/coworkers" condition = {true}/>}>
-              <Route exact path="/form/laptop" element = {<LaptopForm handleChange = {handleChange} values = {values}/>}/>
-              {/* <Route exact path="/form/success" element = {<Success/>}/> */}
+            <Route exact path="/form/coworkers" element = {<CoworkersForm errors = {errors} setErrors = {setErrors} handleChange = {handleChange} values = {values} />}/>
+            <Route element = {<PrivateRoutes fallback ="/form/coworkers" condition = {errors}/>}>
+              <Route exact path="/form/laptop" element = {<LaptopForm errors = {errors} setErrors = {setErrors} handleChange = {handleChange} values = {values}/>}/>
+              <Route exact path="/form/success" element = {<Success/>}/>
             </Route>
             <Route path="/laptop-list/:laptop-id"  element = {<LaptopInfo/>}/>
             <Route exact path="/laptop-list"  element = {<List/>} />

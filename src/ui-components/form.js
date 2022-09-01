@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom'
 
 export default function Form({render,link,text, values}) {
     const {errors, setBulkValidation} = useContext(inputValues);
-    console.log(errors)
     const handleSubmit = () => {
         handleBlur()
         if(errors) return
-        console.log(values)
+        console.log(values,errors)
         // const data = new FormData(e.target) 
         // console.log(Object.fromEntries(data))
     }
@@ -20,12 +19,12 @@ export default function Form({render,link,text, values}) {
     const button = <button type='submit' onClick = {handleSubmit}>{text ? text : 'no text'}</button>;
 
     return (
-        <form onSubmit={handleSubmit} onInvalid={e => e.preventDefault()}>
+        <form onSubmit={e => e.preventDefault()} onInvalid={e => e.preventDefault()}>
             {render}
             {   
                 errors ?
                 button :
-                <Link to='/form/laptop'>
+                <Link className="button-link" to='/form/laptop'>
                     {button}
                 </Link>
             }
