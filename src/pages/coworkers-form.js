@@ -86,7 +86,7 @@ export default function CoworkersForm({values, handleChange}) {
 
     return(
         <>
-            <inputValues.Provider value = {{errors, setErrors, setBulkValidation, bulkValidation}}>
+            <inputValues.Provider value = {{values, errors, setErrors, setBulkValidation, bulkValidation}}>
                 <Form link = '/form/laptop' text='next' render = 
                     {
                         coworkersInputs.map((e,i) => 

@@ -1,7 +1,7 @@
 import Form from "../ui-components/form"
 import Input from "../ui-components/input"
 import { inputValues } from "../contexts/input-values"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ImageUpload from "../ui-components/image-upload"
 import gel from "../assets/images/gel.svg"
 
@@ -28,6 +28,7 @@ export default function LaptopForm({values, handleChange}) {
       {
         id : 2,
         type : 'text',
+        sub_type : 'select',
         name : 'laptop_brand_id',
         placeholder : 'ლეპტოპის ბრენდი',
         required : true,
@@ -111,14 +112,29 @@ export default function LaptopForm({values, handleChange}) {
         required : true,
       },
     ]
+    const validateInputs = (val) => {
+      let errorsArray = []
+      laptopInputs.forEach(e => {
+        if(e.required && val[e.name] === '') {
+          errorsArray.push(e.name)
+        }
+      })
+      if(errorsArray.length === 0) setErrors(false)
+      console.log(errorsArray.length)
+    }
+
+    useEffect(() => {
+      validateInputs(values)
+    },[values])
+
 
     return(
         <>
             <inputValues.Provider value = {{errors, setErrors, setBulkValidation, bulkValidation}}>
-                <Form render = 
+                <Form values = {values} render = 
                     { 
                       <>
-                        <ImageUpload {...imageUploaderDetails}/>
+                        <ImageUpload handleChange = {handleChange} value = {values.laptop_image} {...imageUploaderDetails}/>
                           {    
                             laptopInputs.map((e,i) => 
                               <Input key = {e.id} {...e} handleChange = {handleChange} value = {values[e.name]}/>

@@ -1,11 +1,11 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { byteConverter } from "../helpers/byte-converter"
 import Icon from "./icon"
 import success from "../assets/images/success.svg"
 import error from "../assets/images/error.svg"
 import { inputValues } from "../contexts/input-values"
 
-export default function ImageUpload({name, text, buttonText}) {
+export default function ImageUpload({name, text, buttonText, handleChange, value}) {
     const [dragging, setDragging] = useState(false)
     const [image, setImage] = useState('')
     const [imageData,setImageData] = useState({})
@@ -16,14 +16,18 @@ export default function ImageUpload({name, text, buttonText}) {
         setDragging(e=>!e)
     }
 
-    const handleChange = async (e) => {
-        
+    useEffect(() => {
+        console.log(JSON.stringify(image))
+        handleChange({target : {name : 'laptop_image', value : image}})
+    },[image])
+
+    const handleUpload = async (e) => {
         const file = e.target.files[0]
         setImageData(file)
         readFile(file)
     }
     
-    const readFile = (file) => {
+    const readFile = async (file) => {
         const imageTypes = ['image/bmp','image/webp','image/png','image/jpeg']
 
         if(!imageTypes.includes(file.type) || file.size === 0) {
@@ -38,7 +42,7 @@ export default function ImageUpload({name, text, buttonText}) {
         const readImage = new FileReader();
 
         readImage.readAsDataURL(file)
-        readImage.onload = () => {
+        readImage.onload = async () => {
             let data = readImage.result
             setImage(data)
         }
@@ -57,9 +61,9 @@ export default function ImageUpload({name, text, buttonText}) {
     }
 
     const uploadButton = 
-        <button className="upload-button">
+        <button type="button" className="upload-button">
             <label>
-                <input name={name} type='file' onChange={handleChange}/>
+                <input name={name} type='file' onChange={handleUpload}/>
                 {buttonText}
             </label>
         </button>;
@@ -85,7 +89,7 @@ export default function ImageUpload({name, text, buttonText}) {
             {
                 image && 
                 <div>
-                    <div><span>{image && <Icon render={success}/>}</span>{imageData.name}, {byteConverter(imageData.size)}</div>
+                    <div><span>{image && <Icon render={success}/>}</span>{imageData?.name}, {byteConverter(imageData?.size)}</div>
                     {uploadButton}
                 </div>
             }
