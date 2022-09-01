@@ -7,17 +7,21 @@ import { inputValues } from "../contexts/input-values"
 
 export default function ImageUpload({name, text, buttonText, handleChange, value}) {
     const [dragging, setDragging] = useState(false)
-    const [image, setImage] = useState('')
+    const [image, setImage] = useState(value || '')
     const [imageData,setImageData] = useState({})
     const [imageError, setImageError] = useState(false)
     const { setErrors, bulkValidation } = useContext(inputValues);
+    
+    useEffect(()=> {
+        setImage(value)
+    },[])
 
     const handleDrag = () => {
         setDragging(e=>!e)
     }
 
     useEffect(() => {
-        console.log(JSON.stringify(image))
+        if(image)
         handleChange({target : {name : 'laptop_image', value : image}})
     },[image])
 

@@ -4,10 +4,11 @@ import { inputValues } from "../contexts/input-values"
 import { useEffect, useState } from "react"
 import ImageUpload from "../ui-components/image-upload"
 import gel from "../assets/images/gel.svg"
+import { fetchApiData } from "../api/fetchdata"
 
-export default function LaptopForm({values, handleChange, errors, setErrors}) {
+export default function LaptopForm({values, handleChange, handleRoute}) {
     const [bulkValidation, setBulkValidation] = useState(false)
-
+    const [errors, setErrors] = useState(false)
     const imageUploaderDetails = {name: 'laptop_image',text:'ჩააგდე ან ატვირთე ლეპტოპის ფოტო', buttonText: 'ატვირთე'}
     const laptopInputs = [
       {
@@ -111,26 +112,35 @@ export default function LaptopForm({values, handleChange, errors, setErrors}) {
         required : true,
       },
     ]
-    const validateInputs = (val) => {
-      let errorsArray = []
-      laptopInputs.forEach(e => {
-        if(e.required && val[e.name] === '') {
-          errorsArray.push(e.name)
-        }
-      })
-      if(errorsArray.length === 0) setErrors(false)
-      console.log(errorsArray.length)
+    // const validateInputs = (val) => {
+    //   let errorsArray = []
+    //   laptopInputs.forEach(e => {
+    //     if(e.required && val[e.name] === '') {
+    //       errorsArray.push(e.name)
+    //     }
+    //   })
+    //   if(errorsArray.length === 0) setErrors(false)
+    //   setErrors(true)
+    // }
+    
+    const isError = () => {
+      let namesArray = laptopInputs.map(e => e.name)
+      let patternsArray = laptopInputs.map(e => e?.error?.pattern || /./)
+      let pattern_1Array = laptopInputs.map(e => e?.error?.pattern_1 || /./)
+      const valuesArray = Object.entries(values)
+      const filtered = valuesArray?.filter(e => namesArray.includes(e[0]))
+      const test_1 = filtered?.every((e,i) => patternsArray[i]?.test(e[1]))
+      const test_2 = filtered?.every((e,i) => pattern_1Array[i]?.test(e[1]))
+
+      if(!test_1 || !test_2) return true
+
+      return false
     }
-
-    useEffect(() => {
-      validateInputs(values)
-    },[values])
-
 
     return(
         <>
             <inputValues.Provider value = {{errors, setErrors, setBulkValidation, bulkValidation}}>
-                <Form values = {values} render = 
+                <Form values = {values} handleRoute={handleRoute} submit link='success' isError = {isError} render = 
                     { 
                       <>
                         <ImageUpload handleChange = {handleChange} value = {values.laptop_image} {...imageUploaderDetails}/>
