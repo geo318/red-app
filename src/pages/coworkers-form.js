@@ -1,11 +1,11 @@
 import Form from "../ui-components/form"
 import Input from "../ui-components/input"
 import { inputValues } from "../contexts/input-values"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-export default function CoworkersForm({values, handleChange}) {
-    const [errors, setErrors] = useState(true)
+export default function CoworkersForm({values, handleChange, handleRoute}) {
     const [bulkValidation, setBulkValidation] = useState(false)
+    const [errors, setErrors] = useState(false)
     const coworkersInputs = [
         {
           id : 1,
@@ -82,12 +82,26 @@ export default function CoworkersForm({values, handleChange}) {
           message : 'უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს',
           message_phone : 'ქართული მობ-ნომრის ფორმატი',
         },
-      ]
+    ]
+
+    const isError = () => {
+      let namesArray = coworkersInputs.map(e => e.name)
+      let patternsArray = coworkersInputs.map(e => e?.error?.pattern || /./)
+      let pattern_1Array = coworkersInputs.map(e => e?.error?.pattern_1 || /./)
+      const valuesArray = Object.entries(values)
+      const filtered = valuesArray?.filter(e => namesArray.includes(e[0]))
+      const test_1 = filtered?.every((e,i) => patternsArray[i]?.test(e[1]))
+      const test_2 = filtered?.every((e,i) => pattern_1Array[i]?.test(e[1]))
+
+      if(!test_1 || !test_2) return true
+
+      return false
+    }
 
     return(
         <>
             <inputValues.Provider value = {{values, errors, setErrors, setBulkValidation, bulkValidation}}>
-                <Form link = '/form/laptop' text='next' render = 
+                <Form link = 'laptop' handleRoute={handleRoute} text='next' isError = {isError} render = 
                     {
                         coworkersInputs.map((e,i) => 
                             <Input key = {e.id} {...e} handleChange = {handleChange} value = {values[e.name]}/>

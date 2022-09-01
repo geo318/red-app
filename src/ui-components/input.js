@@ -47,7 +47,7 @@ export default function Input({ id, label, value, error, message, message_phone,
     const handleFocus = () => {
         setFocus(true)
     }
-    
+
     const checkRadio = (inputProps.type === 'radio' && bulkValidation) && value === '';
 
     return (
@@ -60,7 +60,8 @@ export default function Input({ id, label, value, error, message, message_phone,
                         <input 
                             className = {inputProps.required && (focus || bulkValidation) && value === '' ? 'border-error' : ''} id = {id} {...inputProps} 
                             value = {value} onChange = {handleChange} onBlur={ e => {handleFocus(e); sub_type === 'date' && (e.target.type = "text")}} readOnly={sub_type === 'select' ? true : false}
-                            onFocus={(e) => sub_type === 'date' && (e.target.type = "date")}
+                            onFocus={(e) => {sub_type === 'date' && (e.target.type = "date"); e.target.autocomplete = 'off'}} //"new-password";}}
+                            // autoComplete="off"
                         />
                     }
                     {
@@ -68,7 +69,7 @@ export default function Input({ id, label, value, error, message, message_phone,
                         radio_values.map((e,i) =>
                             <div key={i}>
                                 <label htmlFor={e}>{e.name}</label> 
-                                <input id={e.value} {...inputProps} value = {e.value} onChange={handleChange}/>
+                                <input id={e.value} {...inputProps} value = {e.value} onChange={handleChange} checked={value === e.value ? true : false}/>
                             </div>
                         )
                     }
