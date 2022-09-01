@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom'
 export default function Form({render,link,text, values}) {
     const {errors, setBulkValidation} = useContext(inputValues);
     console.log(errors)
-    const handleSubmit = (e) => {
+    const handleSubmit = () => {
         handleBlur()
-        e.preventDefault();
         if(errors) return
         console.log(values)
         // const data = new FormData(e.target) 
