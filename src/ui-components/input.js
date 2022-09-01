@@ -47,7 +47,7 @@ export default function Input({ id, label, value, error, message, message_phone,
     const handleFocus = () => {
         setFocus(true)
     }
-
+    
     const checkRadio = (inputProps.type === 'radio' && bulkValidation) && value === '';
 
     return (
