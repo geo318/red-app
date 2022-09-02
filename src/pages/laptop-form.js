@@ -142,7 +142,7 @@ export default function LaptopForm({values, handleChange, handleRoute, formData,
     return(
         <>
             <inputValues.Provider value = {{errors, fallback, setErrors, setBulkValidation, bulkValidation, formData}}>
-                <Form values = {values} handleRoute={handleRoute} submit link='success' isError = {isError} render = 
+                <Form values = {values} handleRoute={handleRoute} submit isError = {isError} render = 
                     { 
                       <>
                         <ImageUpload formData = {formData} handleChange = {handleChange} value = {values.laptop_image} {...imageUploaderDetails}/>

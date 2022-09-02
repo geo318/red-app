@@ -1,6 +1,17 @@
 * {
   box-sizing: border-box;
+  font-family: 'HelveticaNeue';
 }
+
+:root {
+  --main-blue:#62a1eb;
+  --main-black:#292929;
+}
+
+body {
+  color: --main-black;
+}
+
 .wrapper {
   max-width: 1226px;
   margin: 0 auto;
@@ -15,11 +26,11 @@
   display: flex;
 }
 
-.flx-hc {
+.flx-vc {
   justify-content: center;
 }
 
-.flx-vc {
+.flx-hc {
   align-items: center;
 }
 
@@ -119,4 +130,35 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .success {
   height: 100vh;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+.button {
+  background-color: var(--main-blue);
+  color: #fff;
+  border: 0;
+  padding: 18px 60px;
+  border-radius: 8px;
+  line-height: 24px;
+  width: 297px;
+  text-align: center;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.popup .image-cont {
+  margin-bottom: -15px;
+}
+
+.lnk {
+  text-decoration: none;
+}
+
+.txt-link {
+  color: #0089A7;
 }

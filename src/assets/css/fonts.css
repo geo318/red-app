@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'HelveticaNeue-Medium';
+    src: url('../fonts/subset-HelveticaNeue-Medium.eot');
+    src: url('../fonts/subset-HelveticaNeue-Medium.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/subset-HelveticaNeue-Medium.woff2') format('woff2'),
+        url('../fonts/subset-HelveticaNeue-Medium.woff') format('woff'),
+        url('../fonts/subset-HelveticaNeue-Medium.ttf') format('truetype'),
+        url('../fonts/subset-HelveticaNeue-Medium.svg#HelveticaNeue-Medium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'HelveticaNeue-BoldItalic';
+    src: url('../fonts/subset-HelveticaNeue-BoldItalic.eot');
+    src: url('../fonts/subset-HelveticaNeue-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/subset-HelveticaNeue-BoldItalic.woff2') format('woff2'),
+        url('../fonts/subset-HelveticaNeue-BoldItalic.woff') format('woff'),
+        url('../fonts/subset-HelveticaNeue-BoldItalic.ttf') format('truetype'),
+        url('../fonts/subset-HelveticaNeue-BoldItalic.svg#HelveticaNeue-BoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'HelveticaNeue';
+    src: url('../fonts/subset-HelveticaNeue.eot');
+    src: url('../fonts/subset-HelveticaNeue.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/subset-HelveticaNeue.woff2') format('woff2'),
+        url('../fonts/subset-HelveticaNeue.woff') format('woff'),
+        url('../fonts/subset-HelveticaNeue.ttf') format('truetype'),
+        url('../fonts/subset-HelveticaNeue.svg#HelveticaNeue') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'HelveticaNeue-Bold';
+    src: url('../fonts/subset-HelveticaNeue-Bold.eot');
+    src: url('../fonts/subset-HelveticaNeue-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/subset-HelveticaNeue-Bold.woff2') format('woff2'),
+        url('../fonts/subset-HelveticaNeue-Bold.woff') format('woff'),
+        url('../fonts/subset-HelveticaNeue-Bold.ttf') format('truetype'),
+        url('../fonts/subset-HelveticaNeue-Bold.svg#HelveticaNeue-Bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

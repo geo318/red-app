@@ -1,19 +1,30 @@
-export default function Button({text, padding, onClick, className, type, render}) {
+import { Link } from "react-router-dom"
+
+export default function Button({text, size, padding, onClick, className, type, render, link}) {
     const buttonStyle = {
-        "display": "flex",
         "padding": padding,
+        "fontSize": size
     }
-    const buttonIcon = {
+    const buttonIconStyle = {
         "padding":0,
         "border":0,
         "backgroundColor":"transparent"
     }
 
+    const buttonJSX = 
+        <div className={`flx pointer ${className ? className : '' }`}>
+            <button className = 'button' type = {type} onClick={(e) => onClick(e)} style = {render ? buttonIconStyle : buttonStyle}>{ text ? text : render }</button>
+        </div>;
+
     return (
         <>
-            <div className={`flx button ${className ? className : '' }`}>
-                <button className = 'pointer' type = {type} onClick={(e) => onClick(e)} style = {render ? buttonIcon : buttonStyle}>{ text ? text : render }</button>
-            </div>
+            {
+                link ? 
+                <Link className="lnk" to={link}>
+                    {buttonJSX}
+                </Link> :
+                buttonJSX
+            }
         </>
     )
 }
