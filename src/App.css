@@ -1,8 +1,11 @@
+* {
+  box-sizing: border-box;
+}
 .wrapper {
   max-width: 1226px;
   margin: 0 auto;
+  position: relative;
 }
-
 
 .upload-wrapper {
   display: block;
@@ -79,5 +82,41 @@ input[type=number] {
 
 .button-link {
   display: block;
-  
+
+}
+
+
+input[type="date"] {
+  position: relative;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  color: transparent;
+  background: transparent;
+}
+
+.overlay {
+  background-color: #4a4a4a;
+  position: fixed;
+  display: block;
+  inset: 0;
+  z-index: -1;
+}
+
+.popup {
+  width: 847px;
+  height: 537px;
+  margin: 0 auto;
+  background-color:#fff;
+  z-index: 1;
+}
+
+.success {
+  height: 100vh;
 }

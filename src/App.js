@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Welcome from './pages/welcome';
 import Success from './pages/success';
 import CoworkersForm from './pages/coworkers-form';
@@ -12,7 +12,7 @@ import { PrivateRoutes } from './helpers/privateRoutes';
 import { localStore } from './helpers/local-storage';
 
 function App() {
-
+  const formData = new FormData()
   const localValues = useMemo(()=> localStore('rdb-input-values'),[])
   const localRoutes = useMemo(()=> localStore('rdb-routes'),[])
   const initialValues = {
@@ -33,9 +33,9 @@ function App() {
     laptop_purchase_date : '',
     laptop_price : '',
     laptop_state : '',
-    token : '24bd58e7d84065ec3c38a991a346cced',
+    token : '7a56e20944c948f616f709a5a5734f42',
   }
-  const initialRouteValues = {coworker : true, laptop: true};
+  const initialRouteValues = {laptop : true, success: true};
   const [protectRoute, setProtectRoute] = useState(localRoutes || initialRouteValues)
   const [values, setValues] = useState(localValues || initialValues)
 
@@ -51,20 +51,19 @@ function App() {
     setProtectRoute({...protectRoute, [route] : bool})
   }
   const handleChange = (e) => {
-    setValues({...values, [e.target.name] : e.target.value})
+    setValues((curr)=> curr ? {...curr, [e.target.name] : e.target.value} : {curr})
   }
   return (
     <Router>
       <div className='main'>
-        <div>hi</div>
         <div className='wrapper'>
           <Routes>                
             <Route exact path="/" element = {<Welcome/>}/>            
             <Route exact path="/form/coworkers" element = {<CoworkersForm handleChange = {handleChange} values = {values} handleRoute={handleRoute}/>}/>
-            <Route element = {<PrivateRoutes fallback ="/form/coworkers" condition = {protectRoute?.coworker}/>}>
-              <Route exact path="/form/laptop" element = {<LaptopForm handleChange = {handleChange} values = {values} handleRoute={handleRoute}/>}/>
+            <Route element = {<PrivateRoutes fallback ="/form/coworkers" condition = {protectRoute?.laptop}/>}>
+              <Route exact path="/form/laptop" element = {<LaptopForm fallback='laptop' formData = {formData} handleChange = {handleChange} values = {values} handleRoute={handleRoute}/>}/>
             </Route>
-            <Route element = {<PrivateRoutes fallback ="/form/laptop" condition = {protectRoute?.laptop}/>}>
+            <Route element = {<PrivateRoutes fallback ="/form/laptop" condition = {protectRoute?.success}/>}>
               <Route exact path="/form/success" element = {<Success/>}/>
             </Route>
             <Route path="/laptop-list/:laptop-id"  element = {<LaptopInfo/>}/>

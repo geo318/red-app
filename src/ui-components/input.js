@@ -5,9 +5,10 @@ import { getData } from "../api/formdata";
 import SelectDropdown from "./select-dropdown";
 import Icon from "./icon";
 import errorSvg from "../assets/images/error.svg"
+import InputDate from "./input-date";
 
-export default function Input({ id, label, value, error, message, message_phone, handleChange, sub_type, data_url, radio_values, ...inputProps }) {
-    const { setErrors, bulkValidation } = useContext(inputValues);
+export default function Input({ id, label, value, error, message, message_phone, handleChange, sub_type, data_url, radio_values, prop, filter, ...inputProps }) {
+    const {values, setErrors, bulkValidation } = useContext(inputValues);
     const [validation, setValidation] = useState({});
     const [focus, setFocus] = useState(false)
     const [data, setData] = useState([])
@@ -22,10 +23,14 @@ export default function Input({ id, label, value, error, message, message_phone,
         if(data_url) {
             (async function() {
                 const dataToFetch = await getData(data_url);
-                setData(dataToFetch?.data)
+                filter ? setData(dataToFetch?.data.filter(e => values?.[filter] === e[filter])) : setData(dataToFetch?.data)
+
+                if(filter && data.some(e => e[filter] !== values?.[filter])) {
+                    handleChange({target : {name : inputProps.name, value : ''}})
+                }
             })()
         }
-    },[])
+    },[values?.[filter]])
 
     useEffect(() => {
         error?.pattern_1 ? setValidation({pattern_1: true, pattern : true}) : setValidation({pattern : true})
@@ -56,13 +61,33 @@ export default function Input({ id, label, value, error, message, message_phone,
                 { label && <label className={ checkRadio ? 'error-text' : ''}>{label} { checkRadio && <Icon render={errorSvg}/>}</label> }
                 <div className="input-wrap" onClick={handleSelect}>
                     {
-                        inputProps.type !== 'radio' &&
-                        <input 
-                            className = {inputProps.required && (focus || bulkValidation) && value === '' ? 'border-error' : ''} id = {id} {...inputProps} 
-                            value = {value} onChange = {handleChange} onBlur={ e => {handleFocus(e); sub_type === 'date' && (e.target.type = "text")}} readOnly={sub_type === 'select' ? true : false}
-                            onFocus={(e) => {sub_type === 'date' && (e.target.type = "date"); e.target.autocomplete = 'off'}} //"new-password";}}
-                            // autoComplete="off"
+                        (inputProps.type !== 'radio' && sub_type !== 'date') &&
+                        <input id = {id} {...inputProps} value = {value} onChange = {handleChange}
+                            className = {inputProps.required && (focus || bulkValidation) && value === '' ? 'border-error' : ''}
+                            onBlur={ e => {handleFocus(e);}}
+                            style = {sub_type === 'select' ? {'display':'none'}:{}}
                         />
+                    }
+                    {
+                        sub_type === 'date' && <InputDate id = {id} value = {value} handleChange = {handleChange} placeholder = {inputProps.placeholder}/>
+                    }
+                    {
+                        sub_type === 'select' && <input placeholder={inputProps.placeholder} value = {(value && data?.filter(e => e.id === value)?.[0]?.name) || value} readOnly/>
+                    }                  
+                    {   
+                        
+                        sub_type === 'select' &&
+                        <SelectDropdown selected = {selected} render={
+                            <ul>
+                                {
+                                    data ? data?.map(el => 
+                                        <li key={el.id} id={el.id} onClick={()=> handleChange({target : {name: inputProps.name, value: el[prop] || el.id}})}>
+                                            {el.name}
+                                        </li>) 
+                                    : '...loading'
+                                }
+                            </ul>
+                        }/>
                     }
                     {
                         inputProps.type === 'radio' &&
@@ -72,20 +97,6 @@ export default function Input({ id, label, value, error, message, message_phone,
                                 <input id={e.value} {...inputProps} value = {e.value} onChange={handleChange} checked={value === e.value ? true : false}/>
                             </div>
                         )
-                    }
-                    { 
-                        sub_type === 'select' &&
-                        <SelectDropdown selected = {selected} render={
-                            <ul>
-                                {
-                                    data ? data?.map(el => 
-                                        <li key={el.id} id={el.id} onClick={()=>handleChange({target : {name: inputProps.name, value: el.id}})}>
-                                            {el.name}
-                                        </li>) 
-                                    : '...loading'
-                                }
-                            </ul>
-                        }/>
                     }
                 </div>
                 {

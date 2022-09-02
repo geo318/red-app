@@ -50,6 +50,7 @@ export default function CoworkersForm({values, handleChange, handleRoute}) {
           id : 4,
           type : 'text',
           sub_type : 'select',
+          filter : 'team_id',
           name : 'position_id',
           placeholder : 'პოზიცია',
           required : true,

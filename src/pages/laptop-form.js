@@ -6,7 +6,7 @@ import ImageUpload from "../ui-components/image-upload"
 import gel from "../assets/images/gel.svg"
 import { fetchApiData } from "../api/fetchdata"
 
-export default function LaptopForm({values, handleChange, handleRoute}) {
+export default function LaptopForm({values, handleChange, handleRoute, formData, fallback}) {
     const [bulkValidation, setBulkValidation] = useState(false)
     const [errors, setErrors] = useState(false)
     const imageUploaderDetails = {name: 'laptop_image',text:'ჩააგდე ან ატვირთე ლეპტოპის ფოტო', buttonText: 'ატვირთე'}
@@ -29,6 +29,7 @@ export default function LaptopForm({values, handleChange, handleRoute}) {
         id : 2,
         type : 'text',
         sub_type : 'select',
+        prop : 'id',
         name : 'laptop_brand_id',
         placeholder : 'ლეპტოპის ბრენდი',
         required : true,
@@ -39,6 +40,7 @@ export default function LaptopForm({values, handleChange, handleRoute}) {
         type : 'text',
         sub_type : 'select',
         name : 'laptop_cpu',
+        prop : 'name',
         placeholder : 'CPU',
         required : true,
         data_url: 'https://pcfy.redberryinternship.ge/api/cpus'
@@ -139,11 +141,11 @@ export default function LaptopForm({values, handleChange, handleRoute}) {
 
     return(
         <>
-            <inputValues.Provider value = {{errors, setErrors, setBulkValidation, bulkValidation}}>
+            <inputValues.Provider value = {{errors, fallback, setErrors, setBulkValidation, bulkValidation, formData}}>
                 <Form values = {values} handleRoute={handleRoute} submit link='success' isError = {isError} render = 
                     { 
                       <>
-                        <ImageUpload handleChange = {handleChange} value = {values.laptop_image} {...imageUploaderDetails}/>
+                        <ImageUpload formData = {formData} handleChange = {handleChange} value = {values.laptop_image} {...imageUploaderDetails}/>
                           {    
                             laptopInputs.map((e,i) => 
                               <Input key = {e.id} {...e} handleChange = {handleChange} value = {values[e.name]}/>
