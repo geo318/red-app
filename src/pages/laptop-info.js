@@ -22,9 +22,6 @@ export default function LaptopInfo({link}) {
     console.log(apiUrl)
 
     useEffect(()=> {
-        const dataSelect = localStore('')
-        if(dataSelect) setData(dataSelect)
-
         const pathname = window?.location.pathname;
         const param = pathname?.split('/').pop();
         const urlToFetch = `${url}${param}${token}`;
@@ -33,14 +30,19 @@ export default function LaptopInfo({link}) {
             const dataToFetch = await getData(urlToFetch);
             setData(dataToFetch?.data)
             const positions = localStore('positions') || await getData(url + 'positions')
+            localStore('positions', positions)
             const teams = localStore('teams') || await getData(url + 'teams')
+            localStore('positions', teams)
             const brands = localStore('brands') || await getData(url + 'brands')
+            localStore('positions', brands)
             const cpus = localStore('cpus') || await getData(url + 'cpus')
+            localStore('positions', cpus)
             setDataSet({positions,teams,brands,cpus})
        })()
     },[])
 
     console.log(data)
+    console.log(dataSet)
     return(
         <>
             <Header link = '/laptop-list' renderStyle={{'paddingBottom':5}} render = {
