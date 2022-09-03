@@ -1,8 +1,8 @@
-export default function Icon({width, alt, render,className}) {
+export default function Icon({width, height, size, alt, render,className}) {
 
     const iconStyle = {
-        'width' : width,
-        'height': width,
+        'width' : width || size,
+        'height': height || size,
         'maxWidth' : '100%'
     }
 

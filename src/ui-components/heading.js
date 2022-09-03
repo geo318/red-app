@@ -1,10 +1,10 @@
 
-import { weatherData } from "../contexts/weather-data-context"
-import { useContext } from "react"
-import Spinner from "./spinner/spinner"
+//import { weatherData } from "../contexts/weather-data-context"
+//import { useContext } from "react"
+//import Spinner from "./spinner/spinner"
 
-export default function Heading({h1,h2,h3,h4,h5,h6,className,text,bold}) {
-    const data = useContext(weatherData)
+export default function Heading({h1,h2,h3,h4,h5,h6,className,text,bold, data}) {
+    //const data = useContext(weatherData)
     const hStyle = {
         'fontWeight':bold
     }

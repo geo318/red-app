@@ -2,7 +2,7 @@ import './assets/css/reset.css';
 import './assets/css/fonts.css';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Welcome from './pages/welcome';
 import Success from './pages/success';
 import CoworkersForm from './pages/coworkers-form';
@@ -65,9 +65,9 @@ function App() {
             <Route element = {<PrivateRoutes fallback ="/form/coworkers" condition = {protectRoute?.laptop}/>}>
               <Route exact path="/form/laptop" element = {<LaptopForm fallback='laptop' formData = {formData} handleChange = {handleChange} values = {values} handleRoute={handleRoute}/>}/>
             </Route>
-            <Route element = {<PrivateRoutes fallback ="/form/laptop" condition = {protectRoute?.success}/>}>
+            {/* <Route element = {<PrivateRoutes fallback ="/form/laptop" condition = {protectRoute?.success}/>}>
               <Route exact path="/form/success" element = {<Success/>}/>
-            </Route>
+            </Route> */}
             <Route path="/laptop-list/:laptop-id"  element = {<LaptopInfo/>}/>
             <Route exact path="/laptop-list"  element = {<List/>} />
             <Route path="/*" element = {<Error/>} />

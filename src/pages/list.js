@@ -1,7 +1,12 @@
+import Header from "../ui-components/header";
+
 export default function List() {
     return(
-        <>
-            <h2>list!</h2>
+        <>  
+            <Header render = {
+                <h2>ᲩᲐᲜᲐᲬᲔᲠᲔᲑᲘᲡ ᲡᲘᲐ</h2>
+            }/>
+            
         </>
     )
 }

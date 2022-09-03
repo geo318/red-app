@@ -13,7 +13,7 @@ body {
 }
 
 .wrapper {
-  max-width: 1226px;
+  /* max-width: 1226px; */
   margin: 0 auto;
   position: relative;
 }
@@ -26,12 +26,31 @@ body {
   display: flex;
 }
 
-.flx-vc {
+.flx-grow {
+  flex-grow: 1;
+}
+.flx-self-top {
+  align-self: flex-start;
+}
+.flx-hc {
   justify-content: center;
 }
+.flx-hl {
+  justify-content: flex-end;
+}
+.flx-hr {
+  justify-content: flex-end;
+}
 
-.flx-hc {
+.flx-vc {
   align-items: center;
+}
+
+.flx-vt {
+  align-items:flex-start
+}
+.flx-vb {
+  align-items:flex-end
 }
 
 .flx-r {
@@ -143,10 +162,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   padding: 18px 60px;
   border-radius: 8px;
   line-height: 24px;
-  width: 297px;
+  width: 100%;
   text-align: center;
 }
 
+.success-body {
+  width: 297px;
+}
+.welcome-body {
+  width: 387px;
+}
 .button:hover {
   cursor: pointer;
 }
@@ -157,8 +182,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .lnk {
   text-decoration: none;
+  width: 100%;
 }
 
 .txt-link {
   color: #0089A7;
+}
+
+.header-wrap {
+  display: block;
+  padding: 53px 70px 27px
+}
+
+.button-back {
+  height: 53px;
+  width: 53px;
+  background-color: #d9d9d9;
+  border-radius: 100%;
 }
