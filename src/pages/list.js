@@ -1,12 +1,12 @@
 import Header from "../ui-components/header";
+import Txt from "../ui-components/text";
 
 export default function List() {
     return(
         <>  
             <Header render = {
-                <h2>ᲩᲐᲜᲐᲬᲔᲠᲔᲑᲘᲡ ᲡᲘᲐ</h2>
+                <Txt h='2' text={'ᲩᲐᲜᲐᲬᲔᲠᲔᲑᲘᲡ ᲡᲘᲐ'}/>
             }/>
-            
         </>
     )
 }
