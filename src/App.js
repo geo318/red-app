@@ -67,8 +67,8 @@ function App() {
             {/* <Route element = {<PrivateRoutes fallback ="/form/laptop" condition = {protectRoute?.success}/>}>
               <Route exact path="/form/success" element = {<Success/>}/>
             </Route> */}
-            <Route path="/laptop-list/:laptop-id"  element = {<LaptopInfo/>}/>
-            <Route exact path="/laptop-list"  element = {<List/>} />
+            <Route path="/laptop-list/:id" element = {<LaptopInfo/>}/>
+            <Route exact path="/laptop-list" element = {<List/>} />
             <Route path="/*" element = {<Error/>} />
           </Routes>
         </div>
