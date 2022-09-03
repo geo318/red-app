@@ -29,20 +29,30 @@ export default function LaptopInfo({link}) {
         (async function() {
             const dataToFetch = await getData(urlToFetch);
             setData(dataToFetch?.data)
-            const positions = localStore('positions') || await getData(url + 'positions')
-            localStore('positions', positions)
-            const teams = localStore('teams') || await getData(url + 'teams')
-            localStore('positions', teams)
-            const brands = localStore('brands') || await getData(url + 'brands')
-            localStore('positions', brands)
-            const cpus = localStore('cpus') || await getData(url + 'cpus')
-            localStore('positions', cpus)
-            setDataSet({positions,teams,brands,cpus})
+            const positions = localStore('positions') || await getData(apiUrl + 'positions')
+            localStore('positions', positions.data || positions)
+            const teams = localStore('teams') || await getData(apiUrl + 'teams')
+            localStore('teams', teams.data || teams)
+            const brands = localStore('brands') || await getData(apiUrl + 'brands')
+            localStore('brands', brands.data || brands)
+            const cpus = localStore('cpus') || await getData(apiUrl + 'cpus')
+            localStore('cpus', cpus.data || cpus)
+            
+            if(positions && teams && brands && cpus) {
+                setDataSet({
+                    positions: positions.data || positions, 
+                    teams: teams.data || teams,
+                    brands: brands.data || brands,
+                    cpus: cpus.data ||cpus
+                })
+            }
        })()
     },[])
 
     console.log(data)
     console.log(dataSet)
+    if(data)
+    
     return(
         <>
             <Header link = '/laptop-list' renderStyle={{'paddingBottom':5}} render = {
@@ -73,11 +83,17 @@ export default function LaptopInfo({link}) {
                                         <span>ტელ. ნომერი:</span>
                                     </div>
                                     <div className="value-group flx-c flx-hr">
-                                        <span>{data?.user?.name} {data?.user?.surname}</span>
-                                        <span>{data?.user?.team_id}</span>
-                                        <span>{data?.user?.position_id}</span>
-                                        <span>{data?.user?.email}</span>
-                                        <span>{data?.user?.phone_number}</span>
+                                        {   
+                                            data.user ?
+                                            <>
+                                                <span>{data?.user?.name} {data?.user?.surname}</span>
+                                                <span>{dataSet?.teams?.filter(e => data.user.team_id === e.id)[0].name}</span>
+                                                <span>{dataSet?.positions?.filter(e => data.user.position_id === e.id)[0].name}</span>
+                                                <span>{data?.user?.email}</span>
+                                                <span>{data?.user?.phone_number}</span>
+                                            </> :
+                                            <Spinner/> 
+                                        }
                                     </div>
                                 </div>
                             </div>
