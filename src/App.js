@@ -1,4 +1,3 @@
-import './assets/css/reset.css';
 import './assets/css/fonts.css';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
