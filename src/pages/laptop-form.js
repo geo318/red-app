@@ -33,7 +33,7 @@ export default function LaptopForm({values, handleChange, handleRoute, formData,
         name : 'laptop_brand_id',
         placeholder : 'ლეპტოპის ბრენდი',
         required : true,
-        data_url: 'https://pcfy.redberryinternship.ge/api/brands'
+        data_url: 'brands'
       },
       {
         id : 3,
@@ -43,7 +43,7 @@ export default function LaptopForm({values, handleChange, handleRoute, formData,
         prop : 'name',
         placeholder : 'CPU',
         required : true,
-        data_url: 'https://pcfy.redberryinternship.ge/api/cpus'
+        data_url: 'cpus'
       },
       {
         id : 4,

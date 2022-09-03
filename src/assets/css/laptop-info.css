@@ -1,0 +1,35 @@
+
+.info-group span {
+    margin-bottom:20px;
+    font-size: 22px;
+    line-height: 27px;
+  }
+  
+.label-group {
+    width: 300px
+}
+
+.label-group span {
+    color: #2e2e2e;
+    font-weight: 600;
+}
+
+.value-group span {
+    color: #797979;
+}
+  
+.laptop-info-wrapper {
+    max-width: 1178px;
+}
+.laptop-info img {
+    width: 577px;
+    height: 342px;
+}
+
+.general-info {
+    grid-gap: 68px
+}
+
+.laptop-info-grid {
+    grid-template-columns: 1fr 1fr;
+  }

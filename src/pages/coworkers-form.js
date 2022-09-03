@@ -44,7 +44,7 @@ export default function CoworkersForm({values, handleChange, handleRoute}) {
           name : 'team_id',
           placeholder : 'თიმი',
           required : true,
-          data_url: 'https://pcfy.redberryinternship.ge/api/teams'
+          data_url: 'teams'
         },
         {
           id : 4,
@@ -54,7 +54,7 @@ export default function CoworkersForm({values, handleChange, handleRoute}) {
           name : 'position_id',
           placeholder : 'პოზიცია',
           required : true,
-          data_url: 'https://pcfy.redberryinternship.ge/api/positions'
+          data_url: 'positions'
         },
         {
           id : 5,

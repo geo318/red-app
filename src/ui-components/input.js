@@ -1,4 +1,6 @@
+import { apiUrl } from "../api/url-params";
 import Error from "./error"
+import { localStore } from "../helpers/local-storage";
 import { useContext, useEffect, useState } from "react";
 import { inputValues } from "../contexts/input-values";
 import { getData } from "../api/formdata";
@@ -14,32 +16,38 @@ export default function Input({ id, label, value, error, message, message_phone,
     const [data, setData] = useState([])
     const [selected, setSelected] = useState(false)
 
-    const handleSelect = () => {
-        if(sub_type !== 'select') return
-        setSelected(e => !e)
-    }
-
     useEffect(() => {
-        if(data_url) {
-            (async function() {
-                const dataToFetch = await getData(data_url);
-                filter ? setData(dataToFetch?.data.filter(e => values?.[filter] === e[filter])) : setData(dataToFetch?.data)
+        if(data_url){
+            const dataSelect = localStore(`${data_url}`)
+            if(dataSelect) setData(dataSelect)  
 
-                if(filter && data.some(e => e[filter] !== values?.[filter])) {
-                    handleChange({target : {name : inputProps.name, value : ''}})
-                }
-            })()
+            if(data.length === 0) {
+                (async function() {
+                    const urlToFetch = apiUrl + data_url;
+                    const dataToFetch = await getData(urlToFetch);
+                    setData(dataToFetch?.data)
+                    localStore(`${data_url}`, dataToFetch?.data)
+                })()
+            }
         }
-    },[values?.[filter]])
 
-    useEffect(() => {
         error?.pattern_1 ? setValidation({pattern_1: true, pattern : true}) : setValidation({pattern : true})
     },[])
+
+    useEffect(() => {
+        if(filter && data.some(e => e[filter] !== values?.[filter]))
+        handleChange({target : {name : inputProps.name, value : ''}})
+    },[values?.[filter]])
 
     useEffect(() => {
         if(error?.pattern) handleError('pattern', value)
         if(error?.pattern_1) handleError('pattern_1', value)
     },[value])
+
+    const handleSelect = () => {
+        if(sub_type !== 'select') return
+        setSelected(e => !e)
+    }
 
     const handleError = (pattern, val) => {
         const bool = error[pattern].test(val)
@@ -54,7 +62,7 @@ export default function Input({ id, label, value, error, message, message_phone,
     }
 
     const checkRadio = (inputProps.type === 'radio' && bulkValidation) && value === '';
-
+    const dropdownData = filter && data.length > 0 ? data.filter(e => values?.[filter] === e[filter]) : data;
     return (
         <>
             <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`}>
@@ -80,7 +88,7 @@ export default function Input({ id, label, value, error, message, message_phone,
                         <SelectDropdown selected = {selected} render={
                             <ul>
                                 {
-                                    data ? data?.map(el => 
+                                    data ? dropdownData.map(el => 
                                         <li key={el.id} id={el.id} onClick={()=> handleChange({target : {name: inputProps.name, value: el[prop] || el.id}})}>
                                             {el.name}
                                         </li>) 

@@ -11,7 +11,7 @@
 }
 
 body {
-  color: --main-black;
+  color: var(--main-black);
 }
 
 .wrapper {
@@ -117,7 +117,6 @@ input[type=number] {
 
 }
 
-
 input[type="date"] {
   position: relative;
 }
@@ -202,17 +201,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-radius: 100%;
 }
 
-.list-wrapper {
-  max-width: 1178px;
-}
 
 .grid {
   display: grid;
-}
-
-.laptop-list {
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 52px;
 }
 
 .image-wrapper img {
@@ -221,9 +212,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   object-fit: cover;
 }
 
+.image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* list */
+
+.list-wrapper {
+  max-width: 1178px;
+}
+
 .laptop-list .image-wrapper {
   border-radius: 10px;
-  overflow: hidden;
 }
 .laptop-list img {
   height: 178px;
@@ -236,3 +237,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border: 1px solid #aed1ea;
   border-radius: 28px;
 }
+
+.laptop-list {
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 52px;
+}
+
+/* list */

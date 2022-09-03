@@ -13,7 +13,7 @@ export default function Button({text, size, padding, onClick, className, type, r
 
     const buttonJSX = 
         <div className={`flx pointer ${className ? className : '' }`}>
-            <button className = 'button' type = {type} onClick={(e) => onClick(e)} style = {render ? buttonIconStyle : buttonStyle}>{ text ? text : render }</button>
+            <button className = 'button' type = {type} onClick={(e) => onClick && onClick(e)} style = {render ? buttonIconStyle : buttonStyle}>{ text ? text : render }</button>
         </div>;
 
     return (

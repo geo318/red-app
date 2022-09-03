@@ -3,13 +3,13 @@ import Txt from "../ui-components/text";
 import { useEffect, useState } from "react";
 import { getData } from "../api/formdata";
 import Divider from "../ui-components/divider";
-import { token } from "../api/token";
+import { token, apiUrl } from "../api/url-params";
 
 
 
 export default function List() {
     const [data, setData] = useState([])
-    const url = 'https://pcfy.redberryinternship.ge/api/laptops';
+    const url = apiUrl + 'laptops';
     const urlToFetch = `${url}${token}`
 
     useEffect(() => {
