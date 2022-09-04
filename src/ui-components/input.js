@@ -11,7 +11,7 @@ import Txt from "./text";
 import Divider from "./divider";
 
 export default function Input({ id, label, value, error, message, message_phone, handleChange, sub_type, data_url, radio_values, prop, filter, style, ...inputProps }) {
-    const {values, setErrors, bulkValidation, setBulkValidation} = useContext(inputValues);
+    const {values, bulkValidation, setBulkValidation} = useContext(inputValues);
     const [validation, setValidation] = useState({});
     const [focus, setFocus] = useState(false)
     const [data, setData] = useState([])
@@ -21,17 +21,15 @@ export default function Input({ id, label, value, error, message, message_phone,
         if(data_url){
             const dataSelect = localStore(`${data_url}`)
             if(dataSelect) setData(dataSelect)  
-
             if(data.length === 0) {
                 (async function() {
-                    const urlToFetch = apiUrl + data_url;
+                    const urlToFetch = apiUrl + data_url;   
                     const dataToFetch = await getData(urlToFetch);
                     setData(dataToFetch?.data)
                     localStore(`${data_url}`, dataToFetch?.data)
                 })()
             }
         }
-
         error?.pattern_1 ? setValidation({pattern_1: true, pattern : true}) : setValidation({pattern : true})
     },[])
 
@@ -41,8 +39,12 @@ export default function Input({ id, label, value, error, message, message_phone,
     },[values?.[filter]])
 
     useEffect(() => {
-        if(error?.pattern) handleError('pattern', value)
-        if(error?.pattern_1) handleError('pattern_1', value)
+        if(error && (error.pattern || error.pattern_1)) {
+            if(error?.pattern_1) checkError('pattern_1', value)
+            checkError('pattern', value)
+            return
+        }
+        if(inputProps.required && inputProps.type !== 'radio') checkError('required', value)       
     },[value])
 
     const handleSelect = () => {
@@ -50,22 +52,20 @@ export default function Input({ id, label, value, error, message, message_phone,
         setSelected(e => !e)
     }
 
-    const handleError = (pattern, val) => {
-        const bool = error[pattern].test(val)
-
-        setValidation((curr)=> curr? {...curr, [pattern] : !bool} : {curr})
-        if(bool) return setErrors(false)
-        setErrors(true)
+    const checkError = (pattern, val) => {
+        const bool = pattern === 'required' ? /.+/.test(val) : error[pattern].test(val)
+        if(pattern !== 'required') setValidation(curr=> curr? {...curr, [pattern] : !bool} : {curr})
+        if(pattern === 'required') setValidation({notEmpty : !bool})
     }
 
     const handleFocus = () => {
         setFocus(true)
         setBulkValidation(false)
     }
-
-    const checkRadio = (inputProps.type === 'radio' && bulkValidation) && value === '';
+    
+    const conditionError = ((focus || bulkValidation) && (validation.pattern || validation.pattern_1 || validation.notEmpty))
+    const checkRadio = (inputProps.type === 'radio' && (bulkValidation || error));
     const dropdownData = filter && data.length > 0 ? data.filter(e => values?.[filter] === e[filter]) : data;
-    const conditionError = (error && (focus || bulkValidation)) && (validation.pattern || validation.pattern_1)
     return (
         <>
             <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`} style={style||{'width':'100%'}}>
@@ -80,13 +80,12 @@ export default function Input({ id, label, value, error, message, message_phone,
                         />
                     }
                     {
-                        sub_type === 'date' && <InputDate id = {id} value = {value} handleChange = {handleChange} placeholder = {inputProps.placeholder}/>
+                        sub_type === 'date' && <InputDate name = {inputProps.name} id = {id} value = {value} handleChange = {handleChange} placeholder = {inputProps.placeholder}/>
                     }
                     {
                         sub_type === 'select' && <input className = {inputProps.required && (focus || bulkValidation) && value === '' ? 'pointer error-border' : 'pointer'} placeholder={inputProps.placeholder} value = {(value && data?.filter(e => e.id === value)?.[0]?.name) || value} readOnly/>
                     }                  
                     {   
-                        
                         sub_type === 'select' &&
                         <SelectDropdown selected = {selected} render={
                             <ul>
@@ -115,10 +114,8 @@ export default function Input({ id, label, value, error, message, message_phone,
                     message && <Divider height='8px'/>
                 }
                 {
-                    ((error && 
-                    (focus || bulkValidation)) && 
-                    ((validation.pattern || validation.pattern_1) &&
-                    <Txt size='14px' lineHeight='21px' color='#e52f2f' error = { `${validation.pattern ? `${error?.message}` : ''}${validation.pattern && validation.pattern_1 ? ', ' : ''}${validation.pattern_1 ? `${error?.message_1}` : ''}` } />)) || 
+                    (conditionError &&
+                    <Txt size='14px' lineHeight='21px' color='#e52f2f' error = { `${(validation.pattern && `${error.message || message}`) || message || ''}${validation.pattern && validation.pattern_1 ? ', ' : ''}${validation.pattern_1 ? `${error?.message_1}` : ''}` } />) || 
                     (message && <Txt size='14px' lineHeight='21px' bold='300' color='#2e2e2e' text= {message}/>) 
                 }
             </div>

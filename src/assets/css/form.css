@@ -72,7 +72,8 @@
 }
 
 .error-border input, 
-.form .input-select .error-border {
+.form .input-select .error-border,
+.form .error-border {
     border-color: #e52f2f;
 }
   

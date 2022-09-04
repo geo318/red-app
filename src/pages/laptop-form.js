@@ -11,7 +11,6 @@ import Icon from "../ui-components/icon"
 import rocket from "../assets/images/rocket.png"
 import { validator } from "../helpers/validator"
 
-
 const laptopInputs = [
   {
     id : 1,
@@ -21,8 +20,7 @@ const laptopInputs = [
     label : 'ლეპტოპის სახელი',
     required : true,
     error : {
-      pattern : /.{2,}$/,
-      message : 'მინიმუმ 2 სიმბოლო',
+      pattern : /^[A-Za-z0-9!@#$%^&*()_+=]{2,}$/,
     },
     message : 'ლათინური ასოები, ციფრები, !@#$%^&*()_+= ',
     style : {'maxWidth':'50%','marginRight':'22px','flexGrow':1}
@@ -140,35 +138,35 @@ const laptopInputs = [
 ]
 
 export default function LaptopForm({values, handleChange, handleRoute, formData, fallback}) {
-    const [bulkValidation, setBulkValidation] = useState(false)
-    const [errors, setErrors] = useState(false)
-    const imageUploaderDetails = {name: 'laptop_image',text:'ჩააგდე ან ატვირთე ლეპტოპის ფოტო', buttonText: 'ატვირთე'}
-    const isError = useMemo(()=>validator(laptopInputs, values),[values])
-
-    return(
-      <div className="form-wrapper">
-          <Header link = '/form/coworkers' renderStyle={{'paddingTop':36}} render = {<Tab/>}/>
-          <Divider height='27px'/>
-          <inputValues.Provider value = {{errors, fallback, setErrors, setBulkValidation, bulkValidation, formData}}>
-              <Form values = {values} text='დამახსოვრება' handleRoute={handleRoute} submit isError = {isError} render = 
-                  { 
-                    <>
-                      <ImageUpload formData = {formData} handleChange = {handleChange} value = {values.laptop_image} {...imageUploaderDetails}/>
-                      <Divider height='89px' width='100%'/>
-                        {    
-                          laptopInputs.map(e =>
-                            e.div ? e.div : <Input key = {e.id} {...e} handleChange = {handleChange} value = {values[e.name]}/>
-                          )
-                        }
-                    </>
-                  }
-              />
-          </inputValues.Provider>
-          <Divider height='67px'/>
-          <div className="flx flx-hc">
-            <Icon render={rocket} />
-          </div>
-          <Divider height='45px'/>
-        </div>
-    )
+  const [bulkValidation, setBulkValidation] = useState(false)
+  //const [errors, setErrors] = useState(false)
+  const imageUploaderDetails = {name: 'laptop_image',text:'ჩააგდე ან ატვირთე ლეპტოპის ფოტო', buttonText: 'ატვირთე'}
+  const isError = useMemo(()=>validator(laptopInputs, values),[values])
+  
+  return(
+    <div className="form-wrapper">
+      <Header link = '/form/coworkers' renderStyle={{'paddingTop':36}} render = {<Tab/>}/>
+      <Divider height='27px'/>
+      <inputValues.Provider value = {{fallback, setBulkValidation, bulkValidation, formData}}>
+        <Form values = {values} text='დამახსოვრება' handleRoute={handleRoute} submit isError = {isError} render = 
+          { 
+            <>
+              <ImageUpload formData = {formData} handleChange = {handleChange} value = {values.laptop_image} {...imageUploaderDetails}/>
+              <Divider height='89px' width='100%'/>
+                {    
+                  laptopInputs.map(e =>
+                    e.div ? e.div : <Input key = {e.id} {...e} handleChange = {handleChange} value = {values[e.name]}/>
+                  )
+                }
+            </>
+          }
+        />
+      </inputValues.Provider>
+      <Divider height='67px'/>
+      <div className="flx flx-hc">
+        <Icon render={rocket} />
+      </div>
+      <Divider height='45px'/>
+    </div>
+  )
 }
