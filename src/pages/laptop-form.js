@@ -139,7 +139,6 @@ const laptopInputs = [
 
 export default function LaptopForm({values, handleChange, handleRoute, formData, fallback}) {
   const [bulkValidation, setBulkValidation] = useState(false)
-  //const [errors, setErrors] = useState(false)
   const imageUploaderDetails = {name: 'laptop_image',text:'ჩააგდე ან ატვირთე ლეპტოპის ფოტო', buttonText: 'ატვირთე'}
   const isError = useMemo(()=>validator(laptopInputs, values),[values])
   

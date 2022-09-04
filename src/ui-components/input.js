@@ -63,13 +63,13 @@ export default function Input({ id, label, value, error, message, message_phone,
         setBulkValidation(false)
     }
     
-    const conditionError = ((focus || bulkValidation) && (validation.pattern || validation.pattern_1 || validation.notEmpty))
+    const conditionError = ((inputProps.required) && (focus || bulkValidation) && (validation.pattern || validation.pattern_1 || validation.notEmpty))
     const checkRadio = (inputProps.type === 'radio' && (bulkValidation || error));
     const dropdownData = filter && data.length > 0 ? data.filter(e => values?.[filter] === e[filter]) : data;
     return (
         <>
             <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`} style={style||{'width':'100%'}}>
-                { label && <><Txt size='18px' bold='600' lineHeight='21px' className={ checkRadio ? 'error-text' : conditionError ? 'error-text' : ''} text={`${label}${ checkRadio ? <Icon render={errorSvg}/> : '' }`}/><Divider height='8px'/></> }
+                { label && <><Txt size='18px' bold='600' lineHeight='21px' className={ checkRadio ? 'error-text flx' : conditionError ? 'error-text' : ''} text={`${label}`} render={ checkRadio && <Icon width='22px' render={errorSvg}/>}/><Divider height='8px'/></> }
                 <div className={`input-wrap${conditionError ? ' error-border' : ''}${` ${sub_type || inputProps.type}-wrap`}`} onClick={handleSelect}>
                     {
                         (inputProps.type !== 'radio' && sub_type !== 'date') &&
@@ -104,8 +104,8 @@ export default function Input({ id, label, value, error, message, message_phone,
                         radio_values.map((e,i) =>
                             <div key={i}>
                                 <Divider width='60px'/>
-                                <label htmlFor={e.value}>{e.name}</label>
                                 <input id={e.value} {...inputProps} value = {e.value} onChange={handleChange} checked={value === e.value ? true : false}/>
+                                <label htmlFor={e.value}>{e.name}</label>
                             </div>
                         )
                     }
@@ -114,8 +114,8 @@ export default function Input({ id, label, value, error, message, message_phone,
                     message && <Divider height='8px'/>
                 }
                 {
-                    (conditionError &&
-                    <Txt size='14px' lineHeight='21px' color='#e52f2f' error = { `${(validation.pattern && `${error.message || message}`) || message || ''}${validation.pattern && validation.pattern_1 ? ', ' : ''}${validation.pattern_1 ? `${error?.message_1}` : ''}` } />) || 
+                    (conditionError && inputProps.type !== 'radio' && sub_type !== 'date' &&
+                    <Txt size='14px' lineHeight='21px' color='#e52f2f' error = { `${(validation.pattern && `${error?.message || message}`) || message || ''}${validation.pattern && validation.pattern_1 ? ', ' : ''}${validation.pattern_1 ? `${error?.message_1}` : ''}` } />) || 
                     (message && <Txt size='14px' lineHeight='21px' bold='300' color='#2e2e2e' text= {message}/>) 
                 }
             </div>

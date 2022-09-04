@@ -230,3 +230,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 /* list */
+
+.image img {
+  max-width: 100%;
+  max-height: 100%;
+}
+

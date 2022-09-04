@@ -113,7 +113,7 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
                     <img src={`${image}`} alt=''/> : 
                     <div className="flx-c flx-vc flx-hc">
                         <Txt className={`${imageError || (bulkValidation && !image) ? 'error-text' : ''}`} 
-                            text = {text} size='20px' lineHeight='38px' bold='600' color='#4386a9'
+                            text = {text} size='20px' lineHeight='38px' bold='600'
                             style = {{'display': 'block','width':195,'margin':'0 auto', 'textAlign':'center'}}
                         />
                         <Divider height='65px'/>
