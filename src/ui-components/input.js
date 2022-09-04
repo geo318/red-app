@@ -70,7 +70,7 @@ export default function Input({ id, label, value, error, message, message_phone,
         <>
             <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`} style={style||{'width':'100%'}}>
                 { label && <><Txt size='18px' bold='600' lineHeight='21px' className={ checkRadio ? 'error-text' : conditionError ? 'error-text' : ''} text={`${label}${ checkRadio ? <Icon render={errorSvg}/> : '' }`}/><Divider height='8px'/></> }
-                <div className={`input-wrap${conditionError ? ' error-border' : ''} `} onClick={handleSelect}>
+                <div className={`input-wrap${conditionError ? ' error-border' : ''}${` ${sub_type || inputProps.type}-wrap`}`} onClick={handleSelect}>
                     {
                         (inputProps.type !== 'radio' && sub_type !== 'date') &&
                         <input id = {id} {...inputProps} value = {value} onChange = {handleChange}
@@ -104,7 +104,8 @@ export default function Input({ id, label, value, error, message, message_phone,
                         inputProps.type === 'radio' &&
                         radio_values.map((e,i) =>
                             <div key={i}>
-                                <label htmlFor={e}>{e.name}</label> 
+                                <Divider width='60px'/>
+                                <label htmlFor={e.value}>{e.name}</label>
                                 <input id={e.value} {...inputProps} value = {e.value} onChange={handleChange} checked={value === e.value ? true : false}/>
                             </div>
                         )

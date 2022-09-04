@@ -79,3 +79,15 @@
 .error-text {
     color: #e52f2f;
 }
+
+.radio-wrap {
+    display: flex;
+    height: 66px;
+    align-items: center;
+}
+
+.radio-wrap > div {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}

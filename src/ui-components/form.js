@@ -11,15 +11,14 @@ export default function Form({render, link, text, values, isError, handleRoute, 
     const {errors, setBulkValidation, bulkValidation, formData, fallback} = useContext(inputValues);
     const [loading, setLoading] = useState(true)
     const [popUp, setPopUp] = useState(false)
-    const isErrorMemo = useMemo(()=> isError(),[isError])
 
     const handleSubmit = async () => {
         setBulkValidation(true)
 
-        if(isErrorMemo) return
+        if(isError) return
 
         if(!submit) {
-            handleRoute(link, isError())
+            handleRoute(link, isError)
             return
         }
 
@@ -29,7 +28,7 @@ export default function Form({render, link, text, values, isError, handleRoute, 
 
         const payload = formData
         const result = await sendValues(payload)
-        if(result && !isError()) {
+        if(result && !isError) {
             setPopUp(true)
         }        
     }
@@ -48,7 +47,7 @@ export default function Form({render, link, text, values, isError, handleRoute, 
                     {render}
                 </div>
                 {   
-                    !link || isErrorMemo ?
+                    !link || isError ?
                     <div className="form-button">{button}</div> :
                     <Link className="button-link form-button" to={`/form/${link}`}>
                         {button}
