@@ -1,0 +1,51 @@
+.drag-area {
+    width: 878px;
+    height: 423px;
+    background-color: #f6f6f6;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='18' ry='18' stroke='%234386A9FF' stroke-width='2' stroke-dasharray='6%2c12' stroke-dashoffset='9' stroke-linecap='square'/%3e%3c/svg%3e");
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+
+  .border-image-error {
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='18' ry='18' stroke='%23E52F2FFF' stroke-width='2' stroke-dasharray='6%2c12' stroke-dashoffset='9' stroke-linecap='square'/%3e%3c/svg%3e");
+  }
+  
+  .drag-area img {
+    max-width: 100%;
+    object-fit: cover;
+  }
+  
+  .background-error {
+    background-color: rgba(255, 0, 0, 0.1);
+  }
+  
+  .border-none {
+    background-image: none;
+  }
+  
+  .upload-button > .button {
+    width: 233px;
+    height: 60px;
+  }
+  .upload-button input {
+    display: none;
+  }
+  .upload-button label {
+    position: absolute;
+    inset: 0;
+  }
+  .info-file-name {
+    color: #202020
+  }
+
+  .info-file-size {
+    color: #5f5f5f
+  }
+
+  .img-info {
+    font-size: 18px;
+    line-height: 22px;
+  }

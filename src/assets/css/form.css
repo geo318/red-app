@@ -70,3 +70,12 @@
 .select-dropdown li:hover {
     background-color: #E7F0F8;
 }
+
+.error-border input, 
+.form .input-select .error-border {
+    border-color: #e52f2f;
+}
+  
+.error-text {
+    color: #e52f2f;
+}

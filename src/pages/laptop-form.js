@@ -2,11 +2,13 @@ import Form from "../ui-components/form"
 import Input from "../ui-components/input"
 import { inputValues } from "../contexts/input-values"
 import { useEffect, useState } from "react"
-import ImageUpload from "../ui-components/image-upload"
+import ImageUpload from "../ui-components/image-upload/image-upload"
 import gel from "../assets/images/gel.svg"
 import Header from "../ui-components/header"
 import Tab from "../ui-components/tab/tab"
 import Divider from "../ui-components/divider"
+import Icon from "../ui-components/icon"
+import rocket from "../assets/images/rocket.png"
 
 export default function LaptopForm({values, handleChange, handleRoute, formData, fallback}) {
     const [bulkValidation, setBulkValidation] = useState(false)
@@ -145,11 +147,11 @@ export default function LaptopForm({values, handleChange, handleRoute, formData,
     }
 
     return(
-        <>
+      <div className="form-wrapper">
           <Header link = '/form/coworkers' renderStyle={{'paddingTop':36}} render = {<Tab/>}/>
           <Divider height='27px'/>
           <inputValues.Provider value = {{errors, fallback, setErrors, setBulkValidation, bulkValidation, formData}}>
-              <Form values = {values} handleRoute={handleRoute} submit isError = {isError} render = 
+              <Form values = {values} text='დამახსოვრება' handleRoute={handleRoute} submit isError = {isError} render = 
                   { 
                     <>
                       <ImageUpload formData = {formData} handleChange = {handleChange} value = {values.laptop_image} {...imageUploaderDetails}/>
@@ -162,6 +164,11 @@ export default function LaptopForm({values, handleChange, handleRoute, formData,
                   }
               />
           </inputValues.Provider>
-        </>
+          <Divider height='67px'/>
+          <div className="flx flx-hc">
+            <Icon render={rocket} />
+          </div>
+          <Divider height='45px'/>
+        </div>
     )
 }

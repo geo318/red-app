@@ -1,5 +1,4 @@
 import { apiUrl } from "../api/url-params";
-import Error from "./error"
 import { localStore } from "../helpers/local-storage";
 import { useContext, useEffect, useState } from "react";
 import { inputValues } from "../contexts/input-values";
@@ -8,9 +7,11 @@ import SelectDropdown from "./select-dropdown";
 import Icon from "./icon";
 import errorSvg from "../assets/images/error.svg"
 import InputDate from "./input-date";
+import Txt from "./text";
+import Divider from "./divider";
 
 export default function Input({ id, label, value, error, message, message_phone, handleChange, sub_type, data_url, radio_values, prop, filter, style, ...inputProps }) {
-    const {values, setErrors, bulkValidation } = useContext(inputValues);
+    const {values, setErrors, bulkValidation, setBulkValidation} = useContext(inputValues);
     const [validation, setValidation] = useState({});
     const [focus, setFocus] = useState(false)
     const [data, setData] = useState([])
@@ -59,19 +60,21 @@ export default function Input({ id, label, value, error, message, message_phone,
 
     const handleFocus = () => {
         setFocus(true)
+        setBulkValidation(false)
     }
 
     const checkRadio = (inputProps.type === 'radio' && bulkValidation) && value === '';
     const dropdownData = filter && data.length > 0 ? data.filter(e => values?.[filter] === e[filter]) : data;
+    const conditionError = (error && (focus || bulkValidation)) && (validation.pattern || validation.pattern_1)
     return (
         <>
             <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`} style={style||{'width':'100%'}}>
-                { label && <label className={ checkRadio ? 'error-text' : ''}>{label} { checkRadio && <Icon render={errorSvg}/>}</label> }
-                <div className="input-wrap" onClick={handleSelect}>
+                { label && <><Txt size='18px' bold='600' lineHeight='21px' className={ checkRadio ? 'error-text' : conditionError ? 'error-text' : ''} text={`${label}${ checkRadio ? <Icon render={errorSvg}/> : '' }`}/><Divider height='8px'/></> }
+                <div className={`input-wrap${conditionError ? ' error-border' : ''} `} onClick={handleSelect}>
                     {
                         (inputProps.type !== 'radio' && sub_type !== 'date') &&
                         <input id = {id} {...inputProps} value = {value} onChange = {handleChange}
-                            className = {inputProps.required && (focus || bulkValidation) && value === '' ? 'border-error' : ''}
+                            className = {inputProps.required && (focus || bulkValidation) && value === '' ? 'error-border' : ''}
                             onBlur={ e => {handleFocus(e);}}
                             style = {sub_type === 'select' ? {'display':'none'}:{}}
                         />
@@ -80,7 +83,7 @@ export default function Input({ id, label, value, error, message, message_phone,
                         sub_type === 'date' && <InputDate id = {id} value = {value} handleChange = {handleChange} placeholder = {inputProps.placeholder}/>
                     }
                     {
-                        sub_type === 'select' && <input className="pointer" placeholder={inputProps.placeholder} value = {(value && data?.filter(e => e.id === value)?.[0]?.name) || value} readOnly/>
+                        sub_type === 'select' && <input className = {inputProps.required && (focus || bulkValidation) && value === '' ? 'pointer error-border' : 'pointer'} placeholder={inputProps.placeholder} value = {(value && data?.filter(e => e.id === value)?.[0]?.name) || value} readOnly/>
                     }                  
                     {   
                         
@@ -108,12 +111,14 @@ export default function Input({ id, label, value, error, message, message_phone,
                     }
                 </div>
                 {
+                    message && <Divider height='8px'/>
+                }
+                {
                     ((error && 
                     (focus || bulkValidation)) && 
-                    ((validation.pattern || validation.pattern_1) && 
-                    <Error error = { `${validation.pattern ? `${error?.message}` : ''}${validation.pattern && validation.pattern_1 ? ', ' : ''}${validation.pattern_1 ? `${error?.message_1}` : ''}` } />)) || 
-                    
-                    (message && <span>{message}</span>) 
+                    ((validation.pattern || validation.pattern_1) &&
+                    <Txt size='14px' lineHeight='21px' color='#e52f2f' error = { `${validation.pattern ? `${error?.message}` : ''}${validation.pattern && validation.pattern_1 ? ', ' : ''}${validation.pattern_1 ? `${error?.message_1}` : ''}` } />)) || 
+                    (message && <Txt size='14px' lineHeight='21px' bold='300' color='#2e2e2e' text= {message}/>) 
                 }
             </div>
         </>

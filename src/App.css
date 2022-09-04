@@ -11,7 +11,7 @@
 }
 
 body {
-  color: var(--main-black);
+  color: #000;
 }
 
 .wrapper {
@@ -33,6 +33,10 @@ body {
 
 .flx {
   display: flex;
+}
+
+.flx-mid {
+  justify-content: space-between;
 }
 
 .flx-grow {
@@ -72,42 +76,6 @@ body {
 .flx-c {
   display: flex;
   flex-direction: column;
-}
-
-.drag-area {
-  width: 878px;
-  height: 423px;
-  border: 1px dashed;
-  border-radius: 18px;
-  overflow: hidden;
-}
-
-.drag-active {
-  border-style: solid;
-}
-
-.drag-area img {
-  max-width: 100%;
-  object-fit: cover;
-}
-
-.border-error {
-  border-color:red
-}
-
-.background-error {
-  background-color: rgba(255, 0, 0, 0.1);
-}
-.error-text {
-  color:red
-}
-
-.border-none {
-  border: 0
-}
-
-.upload-button input {
-  display: none;
 }
 
 /* Chrome, Safari, Edge, Opera */
