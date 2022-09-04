@@ -2,13 +2,16 @@ import welcome from "../assets/images/welcome.png"
 import Icon from "../ui-components/icon"
 import Button from "../ui-components/button"
 import Divider from "../ui-components/divider"
+import logo from "../assets/images/logo.svg"
 
 export default function Welcome() {
     return(
         <>
             <div className="success flx flx-hc flx-vc" style={{'position':'fixed','inset':0,'height':'100vh'}}>
             <div className="welcome flx flx-hc flx-vc flx-c">
-                <div className="image-cont">
+                <div className="image-cont flx-c flx-vc">
+                    <Icon render={logo} width='112px'/>
+                    <Divider height='85px'/>
                     <Icon render={welcome}/>
                 </div>
                 <Divider height='123px'/>

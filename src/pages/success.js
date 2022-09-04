@@ -23,7 +23,7 @@ export default function Success() {
                 <div className="popup-body flx-c flx-hc">
                     <Button text='სიაში გადაყვანა' size='20px' link = "/laptop-list"/>
                     <Divider height='28px'/>
-                    <Txt className='txt-link' text='მთავარი' size='20px' lineHeight='24px' bold='500' link='/'/>
+                    <Txt className='txt-link flx flx-hc' text='მთავარი' size='20px' lineHeight='24px' bold='500' link='/'/>
                 </div>
             </div>
         </div>

@@ -6,10 +6,12 @@ import Success from "../pages/success";
 import { apiUrl } from "../api/url-params";
 import Button from "./button";
 import "../assets/css/form.css"
+import Txt from "./text";
+import Divider from "./divider";
+import { initialValues } from "../pages/dataSet/input-data";
 
-export default function Form({render, link, text, values, isError, handleRoute, submit}) {
-    const {errors, setBulkValidation, bulkValidation, formData, fallback} = useContext(inputValues);
-    const [loading, setLoading] = useState(true)
+export default function Form({render, link, backLink, text, values, setValues, isError, handleRoute, submit}) {
+    const {setBulkValidation, formData} = useContext(inputValues);
     const [popUp, setPopUp] = useState(false)
 
     const handleSubmit = async () => {
@@ -22,7 +24,7 @@ export default function Form({render, link, text, values, isError, handleRoute, 
             return
         }
 
-        for ( const key in values ) {
+        for (const key in values) {
             formData.append(key, values[key]);
         }
 
@@ -30,6 +32,7 @@ export default function Form({render, link, text, values, isError, handleRoute, 
         const result = await sendValues(payload)
         if(result && !isError) {
             setPopUp(true)
+            setValues(initialValues)
         }        
     }
     
@@ -46,13 +49,19 @@ export default function Form({render, link, text, values, isError, handleRoute, 
                 <div className="form-content flx flx-wrap">
                     {render}
                 </div>
-                {   
-                    !link || isError ?
-                    <div className="form-button">{button}</div> :
-                    <Link className="button-link form-button" to={`/form/${link}`}>
-                        {button}
-                    </Link>
-                }
+                <div className="flx flx-mid flx-vc">
+                    {
+                        backLink && <Txt color='#62a1eb' text = 'უკან' link={backLink}/>
+                    }
+                    {   
+                        !link || isError ?
+                        <div className="form-button">{button}</div> :
+                        <Link className="button-link form-button" to={`/form/${link}`}>
+                            {button}
+                        </Link>
+                    }
+                </div>
+                <Divider height='45px'/>
             </div>
             {
                 popUp && <Success/>

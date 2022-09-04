@@ -31,7 +31,7 @@ export default function Txt({h, handleClick, size, capital, text, error, bold, c
         <>
         {
             link ? 
-            <Link className="lnk" to={link} onClick={handleClick}>
+            <Link className="lnk pointer" to={link} onClick={handleClick}>
                 { h ? headingsJSX : textJSX }
             </Link> :
             h ? headingsJSX : textJSX 
