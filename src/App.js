@@ -3,9 +3,9 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import Welcome from './pages/welcome';
-import Success from './pages/success';
 import CoworkersForm from './pages/coworkers-form';
 import LaptopForm from './pages/laptop-form';
+import { pureToken } from './api/url-params';
 import List from './pages/list';
 import LaptopInfo from './pages/laptop-info';
 import Error from './pages/error';
@@ -34,7 +34,7 @@ function App() {
     laptop_purchase_date : '',
     laptop_price : '',
     laptop_state : '',
-    token : '7a56e20944c948f616f709a5a5734f42',
+    token : pureToken,
   }
   const initialRouteValues = {laptop : true, success: true};
   const [protectRoute, setProtectRoute] = useState(localRoutes || initialRouteValues)
@@ -64,9 +64,6 @@ function App() {
             <Route element = {<PrivateRoutes fallback ="/form/coworkers" condition = {protectRoute?.laptop}/>}>
               <Route exact path="/form/laptop" element = {<LaptopForm fallback='laptop' formData = {formData} handleChange = {handleChange} values = {values} handleRoute={handleRoute}/>}/>
             </Route>
-            {/* <Route element = {<PrivateRoutes fallback ="/form/laptop" condition = {protectRoute?.success}/>}>
-              <Route exact path="/form/success" element = {<Success/>}/>
-            </Route> */}
             <Route path="/laptop-list/:id" element = {<LaptopInfo/>}/>
             <Route exact path="/laptop-list" element = {<List/>} />
             <Route path="/*" element = {<Error/>} />

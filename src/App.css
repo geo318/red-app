@@ -24,12 +24,22 @@ body {
   display: block;
 }
 
+
+.wrp::before, .wrp::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
 .flx {
   display: flex;
 }
 
 .flx-grow {
   flex-grow: 1;
+}
+.flx-wrap {
+  flex-wrap: wrap;
 }
 .flx-self-top {
   align-self: flex-start;
@@ -165,6 +175,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   line-height: 24px;
   width: 100%;
   text-align: center;
+}
+
+.button:hover {
+  background-color: #317ad0;
+}
+
+.button:active {
+  background-color: #1a5dab;
 }
 
 .success-body {

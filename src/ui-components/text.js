@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Txt({h, size, capital, text, bold, color, className, style, link, lineHeight}) {
+export default function Txt({h, handleClick, size, capital, text, bold, color, className, style, link, lineHeight}) {
     const txtStyle = {
         'fontSize': size,
         'textTransform': capital ? 'capitalize' : 'none',
@@ -31,7 +31,7 @@ export default function Txt({h, size, capital, text, bold, color, className, sty
         <>
         {
             link ? 
-            <Link className="lnk" to={link}>
+            <Link className="lnk" to={link} onClick={handleClick}>
                 { h ? headingsJSX : textJSX }
             </Link> :
             h ? headingsJSX : textJSX 

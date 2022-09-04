@@ -4,7 +4,9 @@ import { inputValues } from "../contexts/input-values"
 import { useEffect, useState } from "react"
 import ImageUpload from "../ui-components/image-upload"
 import gel from "../assets/images/gel.svg"
-import { fetchApiData } from "../api/fetchdata"
+import Header from "../ui-components/header"
+import Tab from "../ui-components/tab/tab"
+import Divider from "../ui-components/divider"
 
 export default function LaptopForm({values, handleChange, handleRoute, formData, fallback}) {
     const [bulkValidation, setBulkValidation] = useState(false)
@@ -34,6 +36,9 @@ export default function LaptopForm({values, handleChange, handleRoute, formData,
         placeholder : 'ლეპტოპის ბრენდი',
         required : true,
         data_url: 'brands'
+      },
+      {
+        div: <Divider />
       },
       {
         id : 3,
@@ -141,20 +146,22 @@ export default function LaptopForm({values, handleChange, handleRoute, formData,
 
     return(
         <>
-            <inputValues.Provider value = {{errors, fallback, setErrors, setBulkValidation, bulkValidation, formData}}>
-                <Form values = {values} handleRoute={handleRoute} submit isError = {isError} render = 
-                    { 
-                      <>
-                        <ImageUpload formData = {formData} handleChange = {handleChange} value = {values.laptop_image} {...imageUploaderDetails}/>
-                          {    
-                            laptopInputs.map((e,i) => 
-                              <Input key = {e.id} {...e} handleChange = {handleChange} value = {values[e.name]}/>
-                            )
-                          }
-                      </>
-                    }
-                />
-            </inputValues.Provider>
+          <Header link = '/form/coworkers' renderStyle={{'paddingTop':36}} render = {<Tab/>}/>
+          <Divider height='27px'/>
+          <inputValues.Provider value = {{errors, fallback, setErrors, setBulkValidation, bulkValidation, formData}}>
+              <Form values = {values} handleRoute={handleRoute} submit isError = {isError} render = 
+                  { 
+                    <>
+                      <ImageUpload formData = {formData} handleChange = {handleChange} value = {values.laptop_image} {...imageUploaderDetails}/>
+                        {    
+                          laptopInputs.map(e =>
+                            e.div ? e.div : <Input key = {e.id} {...e} handleChange = {handleChange} value = {values[e.name]}/>
+                          )
+                        }
+                    </>
+                  }
+              />
+          </inputValues.Provider>
         </>
     )
 }

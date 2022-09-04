@@ -3,20 +3,25 @@ import { inputValues } from "../contexts/input-values";
 import { Link } from 'react-router-dom'
 import { postData } from "../api/postdata";
 import Success from "../pages/success";
+import { apiUrl } from "../api/url-params";
+import Button from "./button";
+import "../assets/css/form.css"
 
 export default function Form({render, link, text, values, isError, handleRoute, submit}) {
-    const {errors, setBulkValidation, formData, fallback} = useContext(inputValues);
+    const {errors, setBulkValidation, bulkValidation, formData, fallback} = useContext(inputValues);
     const [loading, setLoading] = useState(true)
     const [popUp, setPopUp] = useState(false)
     const isErrorMemo = useMemo(()=> isError(),[isError])
 
     const handleSubmit = async () => {
         setBulkValidation(true)
+
+        if(isErrorMemo) return
+
         if(!submit) {
             handleRoute(link, isError())
             return
         }
-        if(errors || isErrorMemo) return
 
         for ( const key in values ) {
             formData.append(key, values[key]);
@@ -26,29 +31,30 @@ export default function Form({render, link, text, values, isError, handleRoute, 
         const result = await sendValues(payload)
         if(result && !isError()) {
             setPopUp(true)
-        }
-        //handleRoute(link, true)
-        
+        }        
     }
     
     const sendValues = async (data) => {
-        const res = await postData('https://pcfy.redberryinternship.ge/api/laptop/create', data)
+        const res = await postData(apiUrl + 'laptop/create', data)
         return res
-        
     }
 
-    const button = <button type='submit' onClick = {handleSubmit}>{text ? text : 'no text'}</button>;
+    const button = <Button padding='18px 46px' type='submit' text={text ? text : 'no text'} onClick = {handleSubmit} size='20px'/>
 
     return (
-        <form onSubmit={e => e.preventDefault()} onInvalid={e => e.preventDefault()}>
-            {render}
-            {   
-                errors || !link ?
-                button :
-                <Link className="button-link" to={`/form/${link}`}>
-                    {button}
-                </Link>
-            }
+        <form className="form wrp" onSubmit={e => e.preventDefault()} onInvalid={e => e.preventDefault()}>
+            <div className="form-content-wrap">
+                <div className="form-content flx flx-wrap">
+                    {render}
+                </div>
+                {   
+                    !link || isErrorMemo ?
+                    <div className="form-button">{button}</div> :
+                    <Link className="button-link form-button" to={`/form/${link}`}>
+                        {button}
+                    </Link>
+                }
+            </div>
             {
                 popUp && <Success/>
             }

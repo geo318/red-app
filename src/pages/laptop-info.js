@@ -15,13 +15,10 @@ export default function LaptopInfo({link}) {
         positions : [],
         teams : [],
         brands : [],
-        cpus : [],
     })
 
-    const url = apiUrl + 'laptop/';
-    console.log(apiUrl)
-
     useEffect(()=> {
+        const url = apiUrl + 'laptop/';
         const pathname = window?.location.pathname;
         const param = pathname?.split('/').pop();
         const urlToFetch = `${url}${param}${token}`;
@@ -35,33 +32,26 @@ export default function LaptopInfo({link}) {
             localStore('teams', teams.data || teams)
             const brands = localStore('brands') || await getData(apiUrl + 'brands')
             localStore('brands', brands.data || brands)
-            const cpus = localStore('cpus') || await getData(apiUrl + 'cpus')
-            localStore('cpus', cpus.data || cpus)
             
-            if(positions && teams && brands && cpus) {
+            if(positions && teams && brands) {
                 setDataSet({
                     positions: positions.data || positions, 
                     teams: teams.data || teams,
                     brands: brands.data || brands,
-                    cpus: cpus.data ||cpus
                 })
             }
        })()
     },[])
 
-    console.log(data)
-    console.log(dataSet)
-    if(data)
-    
     return(
         <>
             <Header link = '/laptop-list' renderStyle={{'paddingBottom':5}} render = {
                 <Txt h='2' bold='700' size='34px' lineHeight='21px' color='#000' text={'ᲚᲔᲞᲢᲝᲞᲘᲡ ᲘᲜᲤᲝ'}/>
             }/>
             <Divider height='84px'/>
-            <div className="laptop-info-wrapper wrapper grid">
+            <div className="laptop-info-wrapper wrapper">
                 {
-                    <div className="laptop-info flx-r" >
+                    <div className="laptop-info" >
                         <div className="general-info grid laptop-info-grid">
                             <div className="image-wrapper">
                                 {
@@ -86,11 +76,95 @@ export default function LaptopInfo({link}) {
                                         {   
                                             data.user ?
                                             <>
-                                                <span>{data?.user?.name} {data?.user?.surname}</span>
+                                                <span>{data.user.name} {data?.user?.surname}</span>
                                                 <span>{dataSet?.teams?.filter(e => data.user.team_id === e.id)[0].name}</span>
                                                 <span>{dataSet?.positions?.filter(e => data.user.position_id === e.id)[0].name}</span>
-                                                <span>{data?.user?.email}</span>
-                                                <span>{data?.user?.phone_number}</span>
+                                                <span>{data.user.email}</span>
+                                                <span>{data.user.phone_number.replace(/(?<=^.{4}|^.{7}|^.{9}|^.{11})/g,' ')}</span>
+                                            </> :
+                                            <Spinner/> 
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <Divider height='84px' width='100%' border='1px solid #a5a5a5'/>
+                        <Divider height='54px'/>
+                        <div className="general-info grid laptop-info-grid">
+                            <div className="flx flx-vc">
+                                <div className="flx-r info-group">
+                                    <div className="label-group flx-c flx-hr">
+                                        <span>ლეპტოპის სახელი:</span>
+                                        <span>ლეპტოპის ბრენდი:</span>
+                                        <span>RAM:</span>
+                                        <span>მეხსიერების ტიპი:</span>
+                                    </div>
+                                    <div className="value-group flx-c flx-hr">
+                                        {   
+                                            data.laptop ?
+                                            <>
+                                                <span>{data.laptop.name}</span>
+                                                <span>{dataSet?.brands?.filter(e => data.laptop.brand_id === e.id)[0].name}</span>
+                                                <span>{data.laptop.ram}</span>
+                                                <span>{data.laptop.hard_drive_type}</span>
+                                            </> :
+                                            <Spinner/> 
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flx flx-vt">
+                                <div className="flx-r info-group">
+                                    <div className="label-group flx-c flx-hr">
+                                        <span>CPU:</span>
+                                        <span>CPU-ს ბირთვი:</span>
+                                        <span>CPU-ს ნაკადი:</span>
+                                    </div>
+                                    <div className="value-group flx-c flx-hr">
+                                        {   
+                                            data.laptop ?
+                                            <>
+                                                <span>{data.laptop.cpu.name}</span>
+                                                <span>{data.laptop.cpu.cores}</span>
+                                                <span>{data.laptop.cpu.threads}</span>
+                                            </> :
+                                            <Spinner/> 
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <Divider height='84px' width='100%' border='1px solid #a5a5a5'/>
+                        <Divider height='54px'/>
+                        <div className="general-info grid laptop-info-grid">
+                            <div className="flx flx-vc">
+                                <div className="flx-r info-group">
+                                    <div className="label-group flx-c flx-hr">
+                                        <span>ლეპტოპის მდგომარეობა:</span>
+                                        <span>ლეპტოპის ფასი:</span>
+                                    </div>
+                                    <div className="value-group flx-c flx-hr">
+                                        {   
+                                            data.laptop ?
+                                            <>
+                                                <span>{data.laptop.state === 'new' ? 'ახალი' : 'მეორადი'}</span>
+                                                <span>{data.laptop.price}</span>
+                                            </> :
+                                            <Spinner/> 
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flx flx-vt">
+                                <div className="flx-r info-group">
+                                    <div className="label-group flx-c flx-hr">
+                                        <span>შეძენის რიცხვი:</span>
+                                    </div>
+                                    <div className="value-group flx-c flx-hr">
+                                        {   
+                                            data.laptop ?
+                                            <>
+                                                <span>{data.laptop.purchase_date ? data.laptop.purchase_date.replaceAll('-',' / ') : '-'}</span>
                                             </> :
                                             <Spinner/> 
                                         }

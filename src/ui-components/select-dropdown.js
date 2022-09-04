@@ -1,6 +1,6 @@
 export default function SelectDropdown({render, selected}) {
     return (
-        <div style={selected ? {'display':'block'}: {'display':'none'} }>
+        <div className ='select-dropdown' style={selected ? {'display':'block'}: {'display':'none'} }>
             {render}
         </div>
     )

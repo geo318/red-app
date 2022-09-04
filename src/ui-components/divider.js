@@ -1,4 +1,4 @@
-export default function Divider({width, height, color, className, grow, border}) {
+export default function Divider({width, height, color, className, grow, border, style}) {
 
     const flxStyle = {
         "display": "flex",
@@ -7,9 +7,8 @@ export default function Divider({width, height, color, className, grow, border})
         "background": color,
         "flexGrow": grow,
         "borderBottom": border,
-        "marginBottom": border ? height: 0
     }
 
 
-    return <div className={`flx${className ? ` ${className}` : ''}`} style = {flxStyle}/>
+    return <div className={`flx${className ? ` ${className}` : ''}`} style = {{...flxStyle, style}}/>
 }

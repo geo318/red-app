@@ -1,0 +1,72 @@
+.form {
+    max-width: 1226px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 18px;
+}
+
+.form-wrapper {
+    background-color: #f6f6f6;
+}
+
+.form-content-wrap {
+    padding: 95px 174px 0;
+}
+.form-content {
+    padding-bottom: 95px;
+}
+
+.form-button {
+    float: right;
+    margin-bottom: 44px;
+}
+
+.form input {
+    width: 100%;
+    padding: 20px 16px;
+    font-size: 18px;
+    line-height: 22px;
+    border-radius: 8px;
+    border: 2px solid #8ac0e2;
+    outline: none;
+}
+
+.form input:focus {
+    background-color:rgba(43, 75, 242, 0.06);
+    border-color:#6499ff;
+}
+
+.input-select input.pointer{
+    position: relative;
+    background: url("../images/select-arrow.svg") no-repeat;
+    background-size: 15px;
+    background-position: center right 20px;
+}
+
+.form .input-select input, .form .input-select .input:focus {
+    background-color: #ebebeb;
+    border-color: #ebebeb;
+}
+.select-dropdown {
+    position: relative;
+}
+.select-dropdown ul {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    filter: drop-shadow(0px 4px 34px rgba(0, 0, 0, 0.25));
+    border-radius: 8px;
+}
+
+.select-dropdown li {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 10px;
+    color: #000;
+}
+
+.select-dropdown li:hover {
+    background-color: #E7F0F8;
+}

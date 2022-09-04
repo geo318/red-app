@@ -9,7 +9,7 @@ import Icon from "./icon";
 import errorSvg from "../assets/images/error.svg"
 import InputDate from "./input-date";
 
-export default function Input({ id, label, value, error, message, message_phone, handleChange, sub_type, data_url, radio_values, prop, filter, ...inputProps }) {
+export default function Input({ id, label, value, error, message, message_phone, handleChange, sub_type, data_url, radio_values, prop, filter, style, ...inputProps }) {
     const {values, setErrors, bulkValidation } = useContext(inputValues);
     const [validation, setValidation] = useState({});
     const [focus, setFocus] = useState(false)
@@ -65,7 +65,7 @@ export default function Input({ id, label, value, error, message, message_phone,
     const dropdownData = filter && data.length > 0 ? data.filter(e => values?.[filter] === e[filter]) : data;
     return (
         <>
-            <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`}>
+            <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`} style={style||{'width':'100%'}}>
                 { label && <label className={ checkRadio ? 'error-text' : ''}>{label} { checkRadio && <Icon render={errorSvg}/>}</label> }
                 <div className="input-wrap" onClick={handleSelect}>
                     {
@@ -80,7 +80,7 @@ export default function Input({ id, label, value, error, message, message_phone,
                         sub_type === 'date' && <InputDate id = {id} value = {value} handleChange = {handleChange} placeholder = {inputProps.placeholder}/>
                     }
                     {
-                        sub_type === 'select' && <input placeholder={inputProps.placeholder} value = {(value && data?.filter(e => e.id === value)?.[0]?.name) || value} readOnly/>
+                        sub_type === 'select' && <input className="pointer" placeholder={inputProps.placeholder} value = {(value && data?.filter(e => e.id === value)?.[0]?.name) || value} readOnly/>
                     }                  
                     {   
                         
@@ -89,7 +89,7 @@ export default function Input({ id, label, value, error, message, message_phone,
                             <ul>
                                 {
                                     data ? dropdownData.map(el => 
-                                        <li key={el.id} id={el.id} onClick={()=> handleChange({target : {name: inputProps.name, value: el[prop] || el.id}})}>
+                                        <li key={el.id} id={el.id} className='pointer' onClick={()=> handleChange({target : {name: inputProps.name, value: el[prop] || el.id}})}>
                                             {el.name}
                                         </li>) 
                                     : '...loading'
