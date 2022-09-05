@@ -1,0 +1,42 @@
+.list-wrapper {
+  max-width: 1178px;
+  margin: 0 auto;
+}
+
+.laptop-list .image-wrapper {
+  border-radius: 10px;
+}
+.laptop-list img {
+  height: 178px;
+  width: 266px;
+}
+
+.laptop-list-item {
+  padding: 14px;
+  background-color: #eafaff;
+  border: 1px solid #aed1ea;
+  border-radius: 28px;
+}
+
+.laptop-list {
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 52px;
+}
+
+
+@media only screen and (max-width: 700px) {
+    .laptop-list {
+        grid-template-columns: 1fr;
+        grid-gap: 26px;
+      }
+    .laptop-list img {
+        width: 164px;
+        height: 109px;
+    }
+    .laptop-list .image-wrapper {
+        border-radius: 6px;
+    }
+    .laptop-list-item{
+        border-radius: 10px;
+    }
+}

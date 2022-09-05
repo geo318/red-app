@@ -1,22 +1,23 @@
 import './assets/css/fonts.css';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import Welcome from './pages/welcome';
 import CoworkersForm from './pages/coworkers-form';
 import LaptopForm from './pages/laptop-form';
-import { pureToken } from './api/url-params';
 import List from './pages/list';
 import LaptopInfo from './pages/laptop-info';
 import Error from './pages/error';
 import { PrivateRoutes } from './helpers/privateRoutes';
 import { localStore } from './helpers/local-storage';
 import { initialValues } from './pages/dataSet/input-data';
+import { mobileDevice } from './contexts/mobile-device';
 
 function App() {
   const formData = new FormData()
   const localValues = useMemo(()=> localStore('rdb-input-values'),[])
   const localRoutes = useMemo(()=> localStore('rdb-routes'),[])
+  const isMobile = useMemo(()=> window.innerWidth < 700, [])
   const initialRouteValues = {laptop : true, success: true};
   const [protectRoute, setProtectRoute] = useState(localRoutes || initialRouteValues)
   const [values, setValues] = useState(localValues || initialValues)
@@ -38,6 +39,7 @@ function App() {
   return (
     <Router>
       <div className='main'>
+        <mobileDevice.Provider value={{isMobile}}>
         <div className='wrapper'>
           <Routes>                
             <Route exact path="/" element = {<Welcome/>}/>            
@@ -50,6 +52,7 @@ function App() {
             <Route path="/*" element = {<Error/>} />
           </Routes>
         </div>
+        </mobileDevice.Provider>
       </div>
     </Router>
   );

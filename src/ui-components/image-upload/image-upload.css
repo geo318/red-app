@@ -1,3 +1,7 @@
+.upload-wrapper {
+    display: block;
+  }
+
 .drag-area {
     width: 878px;
     height: 423px;

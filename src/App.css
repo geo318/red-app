@@ -20,11 +20,6 @@ body {
   position: relative;
 }
 
-.upload-wrapper {
-  display: block;
-}
-
-
 .wrp::before, .wrp::after {
   content: '';
   display: table;
@@ -156,9 +151,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .success-body {
   width: 297px;
 }
-.welcome-body {
-  width: 387px;
-}
+
 .button:hover {
   cursor: pointer;
 }
@@ -187,7 +180,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-radius: 100%;
 }
 
-
 .grid {
   display: grid;
 }
@@ -203,36 +195,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   overflow: hidden;
 }
 
-/* list */
-
-.list-wrapper {
-  max-width: 1178px;
-}
-
-.laptop-list .image-wrapper {
-  border-radius: 10px;
-}
-.laptop-list img {
-  height: 178px;
-  width: 266px;
-}
-
-.laptop-list-item {
-  padding: 14px;
-  background-color: #eafaff;
-  border: 1px solid #aed1ea;
-  border-radius: 28px;
-}
-
-.laptop-list {
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 52px;
-}
-
-/* list */
-
 .image img {
   max-width: 100%;
   max-height: 100%;
 }
 
+@media only screen and (max-width: 700px) {
+  .wrapper {
+    padding: 0 16px;
+  }
+  .header-wrap {
+    padding: 34px 0
+  }
+  .button-back {
+    width: auto;
+    height: 16px;
+    background-color: transparent;
+  }
+}

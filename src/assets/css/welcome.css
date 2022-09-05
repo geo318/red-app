@@ -1,0 +1,10 @@
+@media only screen and (min-width: 701px) {   
+    .welcome-body {
+        width: 387px;
+    }
+}
+  
+.welcome-body {
+    display: block;
+    padding: 0 16px
+}
