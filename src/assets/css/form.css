@@ -50,6 +50,34 @@
     transform: scale(1);
 }
 
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type="date"] {
+  position: relative;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  color: transparent;
+  background: transparent;
+}
+
 .form {
     max-width: 1226px;
     margin: 0 auto;
@@ -66,11 +94,6 @@
 }
 .form-content {
     padding-bottom: 95px;
-}
-
-.form-button {
-    float: right;
-    margin-bottom: 44px;
 }
 
 .form input {
@@ -154,3 +177,28 @@ input[name='laptop_price'] {
     background-size: 18px;
 }
 
+@media only screen and (max-width: 700px) {
+    .header-wrap {
+        display: none;
+    }
+    .form-content-wrap {
+        padding: 0;
+    }
+    .form-content > .input {
+        min-width: 100%;
+        margin: 0 0 26px!important;
+    }
+    .form-content > .input-select {
+        padding-bottom: 20px;
+    }
+    .form-content {
+        padding-bottom: 0;
+    }
+    .form-content-wrap > .flx-mid > div {
+        padding-top: 20px;
+    }
+    .form-content-wrap .divider {
+        padding-bottom: 13px;
+    }
+}
+  

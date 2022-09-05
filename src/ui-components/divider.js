@@ -10,5 +10,5 @@ export default function Divider({width, height, color, className, grow, border, 
     }
 
 
-    return <div className={`flx${className ? ` ${className}` : ''}`} style = {{...flxStyle, style}}/>
+    return <div className={`divider flx${className ? ` ${className}` : ''}`} style = {{...flxStyle, style}}/>
 }

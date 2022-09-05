@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { mobileDevice } from "../contexts/mobile-device"
 import { token, apiUrl } from "../api/url-params"
 import { getData } from "../api/formdata"
 import { localStore } from "../helpers/local-storage"
@@ -16,6 +17,7 @@ export default function LaptopInfo({link}) {
         teams : [],
         brands : [],
     })
+    const {isMobile} = useContext(mobileDevice);
 
     useEffect(()=> {
         const url = apiUrl + 'laptop/';
@@ -45,11 +47,11 @@ export default function LaptopInfo({link}) {
 
     return(
         <>
-            <Header link = '/laptop-list' renderStyle={{'paddingBottom':5}} render = {
-                <Txt h='2' bold='700' size='34px' lineHeight='21px' color='#000' text={'ᲚᲔᲞᲢᲝᲞᲘᲡ ᲘᲜᲤᲝ'}/>
+            <Header link = '/' renderStyle={isMobile ? {} : {'paddingBottom':5}} render = {
+                <Txt h='2' bold='700' size={isMobile ? '16px' : '34px'} lineHeight='21px' color='#000' text={'ᲚᲔᲞᲢᲝᲞᲘᲡ ᲘᲜᲤᲝ'}/>
             }/>
-            <Divider height='84px'/>
-            <div className="laptop-info-wrapper wrapper">
+            <Divider height={!isMobile && '84px'}/>
+            <div className="laptop-info-wrapper">
                 {
                     <div className="laptop-info" >
                         <div className="general-info grid laptop-info-grid">
@@ -63,16 +65,17 @@ export default function LaptopInfo({link}) {
                                     </>
                                 }
                             </div>
+                            {isMobile && <Divider height='29px'/>}
                             <div className="user-info flx flx-vc">
                                 <div className="flx-r info-group">
-                                    <div className="label-group flx-c flx-hr">
+                                    <div className={`label-group flx-c ${!isMobile && 'flx-hr'}`}>
                                         <span>სახელი:</span>
                                         <span>თიმი:</span>
                                         <span>პოზიცია:</span>
                                         <span>მეილი:</span>
                                         <span>ტელ. ნომერი:</span>
                                     </div>
-                                    <div className="value-group flx-c flx-hr">
+                                    <div className={`value-group flx-c ${!isMobile && 'flx-hr'}`}>
                                         {   
                                             data.user ?
                                             <>
@@ -88,8 +91,8 @@ export default function LaptopInfo({link}) {
                                 </div>
                             </div>
                         </div>
-                        <Divider height='84px' width='100%' border='1px solid #a5a5a5'/>
-                        <Divider height='54px'/>
+                        <Divider height={isMobile ? '20px' : '84px'} width='100%' border='1px solid #a5a5a5'/>
+                        <Divider height={isMobile ? '23px' : '54px'}/>
                         <div className="general-info grid laptop-info-grid">
                             <div className="flx flx-vc">
                                 <div className="flx-r info-group">
@@ -134,8 +137,8 @@ export default function LaptopInfo({link}) {
                                 </div>
                             </div>
                         </div>
-                        <Divider height='84px' width='100%' border='1px solid #a5a5a5'/>
-                        <Divider height='54px'/>
+                        <Divider height={isMobile ? '20px' : '84px'} width='100%' border='1px solid #a5a5a5'/>
+                        <Divider height={isMobile ? '23px' : '54px'}/>
                         <div className="general-info grid laptop-info-grid">
                             <div className="flx flx-vc">
                                 <div className="flx-r info-group">
@@ -175,7 +178,7 @@ export default function LaptopInfo({link}) {
                     </div>
                 }
             </div>
-            <Divider height='90px'/>
+            <Divider height={isMobile ? '30px' : '90px'}/>
         </>
     )
 }

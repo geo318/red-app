@@ -73,36 +73,9 @@ body {
   flex-direction: column;
 }
 
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
 .button-link {
   display: block;
 
-}
-
-input[type="date"] {
-  position: relative;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  color: transparent;
-  background: transparent;
 }
 
 .overlay {

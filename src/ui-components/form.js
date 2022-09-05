@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useState } from "react";
 import { inputValues } from "../contexts/input-values";
 import { Link } from 'react-router-dom'
 import { postData } from "../api/postdata";
@@ -9,9 +9,12 @@ import "../assets/css/form.css"
 import Txt from "./text";
 import Divider from "./divider";
 import { initialValues } from "../pages/dataSet/input-data";
+import { mobileDevice } from "../contexts/mobile-device";
+
 
 export default function Form({render, link, backLink, text, values, setValues, isError, handleRoute, submit}) {
     const {setBulkValidation, formData} = useContext(inputValues);
+    const {isMobile} = useContext(mobileDevice);
     const [popUp, setPopUp] = useState(false)
 
     const handleSubmit = async () => {
@@ -45,13 +48,14 @@ export default function Form({render, link, backLink, text, values, setValues, i
 
     return (
         <form className="form wrp" onSubmit={e => e.preventDefault()} onInvalid={e => e.preventDefault()}>
+            {isMobile && <Divider height='38px'/>}
             <div className="form-content-wrap">
                 <div className="form-content flx flx-wrap">
                     {render}
                 </div>
                 <div className="flx flx-mid flx-vc">
                     {
-                        backLink && <Txt color='#62a1eb' text = 'უკან' link={backLink}/>
+                        backLink ? <Txt color='#62a1eb' text = 'უკან' link={backLink}/> : <div/>
                     }
                     {   
                         !link || isError ?
