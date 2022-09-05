@@ -6,6 +6,7 @@ import Divider from "../ui-components/divider";
 import { token, apiUrl } from "../api/url-params";
 import { mobileDevice } from "../contexts/mobile-device";
 import "../assets/css/list.css"
+import Spinner from "../ui-components/spinner/spinner";
 
 export default function List() {
     const [data, setData] = useState([])
@@ -34,9 +35,9 @@ export default function List() {
                             <div key = {e.laptop.id} className="laptop-list-item flx-r" data-id = {e.laptop.id}>
                                 <div className="image-wrapper">
                                     {
-                                        e.laptop?.image ? 
-                                        <img alt='' src={`https://pcfy.redberryinternship.ge/${e.laptop?.image}`}/> :
-                                        '...loading'
+                                        e.laptop.image === 0 ?
+                                        <img alt='' src={`https://pcfy.redberryinternship.ge/${e.laptop?.image}`}/>:
+                                        <Spinner/>
                                     }
                                 </div>
                                 <Divider width={isMobile ? '16px' : '28px'}/>

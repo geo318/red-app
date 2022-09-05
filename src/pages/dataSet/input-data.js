@@ -124,7 +124,7 @@ export const laptopInputs = [
       label : 'ლეპტოპის სახელი',
       required : true,
       error : {
-        pattern : /^[A-Za-z0-9!@#$%^&*()_+=]{2,}$/,
+        pattern : /^[A-Za-z0-9!@#$%^&*()_+=" "]{2,50}$/,
       },
       message : 'ლათინური ასოები, ციფრები, !@#$%^&*()_+= ',
       style : {'maxWidth':'50%','marginRight':'22px','flexGrow':1}
