@@ -14,7 +14,7 @@ export default function Welcome() {
     const {isMobile} = useContext(mobileDevice);
     return(
         <>
-            <div className="flx flx-hc flx-vc">
+        <div className="flx flx-hc flx-vc" style={{'minHeight':'100vh'}}>
             <div className="welcome flx flx-hc flx-vc flx-c">
                 <div className="image-cont flx-c flx-vc">
                     {isMobile && <Divider height='40px'/>}
