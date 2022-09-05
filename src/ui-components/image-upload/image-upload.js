@@ -15,8 +15,8 @@ import { mobileDevice } from "../../contexts/mobile-device"
 export default function ImageUpload({name, text, buttonText, handleChange, value, formData}) {
     const localImage = useMemo(()=> localStore('rdb-laptop-image'),[])
     const localImageData = useMemo(()=> localStore('rdb-laptop-image-data'),[])
-    const [imageDetails, setImageDetails] = useState(localImageData)
-    const [image, setImage] = useState(localImage)
+    const [imageDetails, setImageDetails] = useState( (localImage != null && localImage !== 'nullify') ? localImageData : null)
+    const [image, setImage] = useState((localImage != null && localImage !== 'nullify') ? localImage : null)
     const imageName = useMemo(()=> imageDetails?.name.split('.'),[image])
     const [dragging, setDragging] = useState(false)
     const [imageError, setImageError] = useState(false)
@@ -28,6 +28,7 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
       },[image])
 
     useEffect(()=> {
+        console.log(image,localImage)
         if(image)
         imageToBlob(image)
     },[image])

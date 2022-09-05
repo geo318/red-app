@@ -10,6 +10,7 @@ import Icon from "../ui-components/icon"
 import { validator } from "../helpers/validator"
 import { coworkersInputs } from "./dataSet/input-data"
 import { mobileDevice } from "../contexts/mobile-device"
+import Txt from "../ui-components/text"
 
 export default function CoworkersForm({values, handleChange, handleRoute}) {
   const {isMobile} = useContext(mobileDevice)
@@ -19,10 +20,20 @@ export default function CoworkersForm({values, handleChange, handleRoute}) {
 
   return(
     <div className="form-wrapper">
-      <Header link = '/' renderStyle={{'paddingTop':36}} render = {
-        <Tab handleClick={()=>handleRoute('laptop',isError)}/>
+      <Header link = '/' renderStyle={!isMobile ? {'paddingTop':36} : {}} render = {
+        <>
+          {
+            isMobile &&
+            <div className="flx flx-c flx-vc form-header">
+              <Txt h='2' bold='700' size='16px' lineHeight='21px' color='#232323' text={'თანამშრომლის ინფო'}/>
+              <Divider height='5px'/>
+              <div className="mobile-form-page">1/2</div>
+            </div>
+          }
+          {!isMobile && <Tab handleClick={()=>handleRoute('laptop',isError)}/>}
+        </>
       }/>
-      <Divider height='27px'/>
+      <Divider height={isMobile ? '11px' : '27px'}/>
       <inputValues.Provider value = {{values, errors, setErrors, setBulkValidation, bulkValidation}}>
         <Form className='coworkers-form' link = 'laptop' handleRoute={handleRoute} text='შემდეგი' isError = {isError} render =
           {

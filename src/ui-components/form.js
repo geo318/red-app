@@ -10,7 +10,7 @@ import Txt from "./text";
 import Divider from "./divider";
 import { initialValues } from "../pages/dataSet/input-data";
 import { mobileDevice } from "../contexts/mobile-device";
-
+import { localStore } from "../helpers/local-storage";
 
 export default function Form({render, link, backLink, text, values, setValues, isError, handleRoute, submit, className}) {
     const {setBulkValidation, formData} = useContext(inputValues);
@@ -36,6 +36,7 @@ export default function Form({render, link, backLink, text, values, setValues, i
         if(result && !isError) {
             setPopUp(true)
             setValues(initialValues)
+            localStore('rdb-laptop-image', 'nullify')
         }        
     }
     

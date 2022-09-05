@@ -1,7 +1,7 @@
 
 export const localStore = (name, data) => {
 
-    if(data) {
+    if(data || data === 'nullify') {
         localStorage.setItem(name, JSON.stringify(data));
         return
     }

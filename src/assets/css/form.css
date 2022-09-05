@@ -183,9 +183,6 @@ input[name='laptop_price'] {
 }
 
 @media only screen and (max-width: 700px) {
-    .header-wrap {
-        display: none;
-    }
     .form-content-wrap {
         padding: 0;
     }
@@ -241,6 +238,18 @@ input[name='laptop_price'] {
     }
     .input-select:first-child {
         margin-bottom: 0!important;
+    }
+    .form-header {
+        padding-top: 16px;
+    }
+    .form-wrapper >
+    .header-wrap {
+        padding: 16px 16px 0 16px
+    }
+    .mobile-form-page {
+        font-size: 14px;
+        line-height: 17px;
+        color: #898989;
     }
 }
 

@@ -1,7 +1,7 @@
 import './assets/css/fonts.css';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useMemo, useState, useRef } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Welcome from './pages/welcome';
 import CoworkersForm from './pages/coworkers-form';
 import LaptopForm from './pages/laptop-form';

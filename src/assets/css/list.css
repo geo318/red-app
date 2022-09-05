@@ -39,4 +39,7 @@
     .laptop-list-item{
         border-radius: 10px;
     }
+    .list-wrapper {
+      padding: 0 16px;
+    }
 }

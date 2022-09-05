@@ -11,7 +11,7 @@ import rocket from "../assets/images/rocket.png"
 import { validator } from "../helpers/validator"
 import { laptopInputs } from "./dataSet/input-data"
 import { mobileDevice } from "../contexts/mobile-device"
-
+import Txt from "../ui-components/text"
 
 export default function LaptopForm({values, setValues, handleChange, handleRoute, formData, fallback}) {
   const [bulkValidation, setBulkValidation] = useState(false)
@@ -21,7 +21,19 @@ export default function LaptopForm({values, setValues, handleChange, handleRoute
   
   return(
     <div className="form-wrapper">
-      <Header link = '/form/coworkers' renderStyle={{'paddingTop':36}} render = {<Tab/>}/>
+      <Header link = '/form/coworkers' renderStyle={!isMobile ? {'paddingTop':36} : {}} render = {
+        <>
+          {
+            isMobile &&
+            <div className="flx flx-c flx-vc form-header">
+              <Txt h='2' bold='700' size='16px' lineHeight='21px' color='#232323' text={'ლეპტოპის მახასიათებლები'}/>
+              <Divider height='5px'/>
+              <div className="mobile-form-page">2/2</div>
+            </div>
+          }
+          {!isMobile && <Tab/>}
+        </>
+      }/>
       <Divider height='27px'/>
       <inputValues.Provider value = {{fallback, setBulkValidation, bulkValidation, formData}}>
         <Form className = 'laptop-form' values = {values} setValues={setValues} text='დამახსოვრება' backLink='/form/coworkers' handleRoute={handleRoute} submit isError = {isError} render = 
