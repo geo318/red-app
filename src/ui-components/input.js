@@ -3,7 +3,7 @@ import { localStore } from "../helpers/local-storage";
 import { useContext, useEffect, useState } from "react";
 import { inputValues } from "../contexts/input-values";
 import { getData } from "../api/formdata";
-import SelectDropdown from "./select-dropdown";
+import Select from "./select/select-dropdown";
 import Icon from "./icon";
 import errorSvg from "../assets/images/error.svg"
 import InputDate from "./input-date";
@@ -15,12 +15,11 @@ export default function Input({ id, label, value, error, message, message_phone,
     const [validation, setValidation] = useState({});
     const [focus, setFocus] = useState(false)
     const [data, setData] = useState([])
-    const [selected, setSelected] = useState(false)
 
     useEffect(() => {
         if(data_url){
             const dataSelect = localStore(`${data_url}`)
-            if(dataSelect) setData(dataSelect)  
+            if(dataSelect) setData(dataSelect)
             if(data.length === 0) {
                 (async function() {
                     const urlToFetch = apiUrl + data_url;   
@@ -47,11 +46,6 @@ export default function Input({ id, label, value, error, message, message_phone,
         if(inputProps.required && inputProps.type !== 'radio') checkError('required', value)       
     },[value])
 
-    const handleSelect = () => {
-        if(sub_type !== 'select') return
-        setSelected(e => !e)
-    }
-
     const checkError = (pattern, val) => {
         const bool = pattern === 'required' ? /.+/.test(val) : error[pattern].test(val)
         if(pattern !== 'required') setValidation(curr=> curr? {...curr, [pattern] : !bool} : {curr})
@@ -70,7 +64,7 @@ export default function Input({ id, label, value, error, message, message_phone,
         <>
             <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`} style={style||{'width':'100%'}}>
                 { label && <><Txt size='18px' bold='600' lineHeight='21px' className={`${checkRadio ? 'error-text flx' : ''}${conditionError ? 'error-text' : ''}`} text={`${label}`} render={ checkRadio && <Icon width='22px' render={errorSvg}/>}/><Divider height='8px'/></> }
-                <div className={`input-wrap${conditionError ? ' error-border' : ''}${` ${sub_type || inputProps.type}-wrap`}`} onClick={handleSelect}>
+                <div className={`input-wrap${conditionError ? ' error-border' : ''}${` ${sub_type || inputProps.type}-wrap`}`}>
                     {
                         (inputProps.type !== 'radio' && sub_type !== 'date') &&
                         <input id = {id} {...inputProps} value = {value} onChange = {handleChange}
@@ -81,13 +75,10 @@ export default function Input({ id, label, value, error, message, message_phone,
                     }
                     {
                         sub_type === 'date' && <InputDate name = {inputProps.name} id = {id} value = {value} handleChange = {handleChange} placeholder = {inputProps.placeholder}/>
-                    }
-                    {
-                        sub_type === 'select' && <input className = {inputProps.required && (focus || bulkValidation) && value === '' ? 'pointer error-border' : 'pointer'} placeholder={inputProps.placeholder} value = {(value && data?.filter(e => e.id === value)?.[0]?.name) || value} readOnly/>
-                    }                  
+                    }              
                     {   
                         sub_type === 'select' &&
-                        <SelectDropdown selected = {selected} render={
+                        <Select id = {id} className = {inputProps.required && (focus || bulkValidation) && value === '' ? 'pointer error-border' : 'pointer'} placeholder={inputProps.placeholder} value = {(value && data?.filter(e => e.id === value)?.[0]?.name) || value}>
                             <ul>
                                 {
                                     data ? dropdownData.map(el => 
@@ -97,7 +88,7 @@ export default function Input({ id, label, value, error, message, message_phone,
                                     : '...loading'
                                 }
                             </ul>
-                        }/>
+                        </Select>
                     }
                     {
                         inputProps.type === 'radio' &&
