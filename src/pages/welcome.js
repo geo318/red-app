@@ -7,6 +7,8 @@ import { useContext } from "react"
 import { mobileDevice } from "../contexts/mobile-device"
 import welcomeMobile from "../assets/images/welcome-mobile.png"
 import "../assets/css/welcome.css"
+import loadingImage from "../assets/images/loading.jpg"
+import Spinner from "../ui-components/spinner/spinner"
 
 export default function Welcome() {
     const {isMobile} = useContext(mobileDevice);
@@ -18,7 +20,13 @@ export default function Welcome() {
                     {isMobile && <Divider height='40px'/>}
                     <Icon render={logo} width='112px'/>
                     <Divider height={isMobile? '117px' : '85px'}/>
-                    <Icon render={(isMobile && welcomeMobile) || welcome}/>
+                    {
+                        <Icon render={(isMobile && welcomeMobile) || welcome}/> ||
+                        <>
+                            <img alt='' src={loadingImage}/>
+                            <Spinner color = "#62a1eb" size = '70px'/>
+                        </>
+                    }
                 </div>
                 <Divider height='123px'/>
                 <div className="welcome-body flx-c flx-hc">
