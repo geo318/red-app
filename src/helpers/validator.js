@@ -5,7 +5,7 @@ export const validator = (inputs, values) => {
   let pattern_1Array = filterArray.map(e => e?.error?.pattern_1 || /./)
   const valuesArray = Object.entries(values)
   const filtered = valuesArray?.filter(e => namesArray.includes(e[0]))
-  console.log(patternsArray,filtered)
+  
   const test_1 = filtered?.every((e,i) => patternsArray[i]?.test(e[1]))
   const test_2 = filtered?.every((e,i) => pattern_1Array[i]?.test(e[1]))
   

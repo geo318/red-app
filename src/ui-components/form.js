@@ -12,7 +12,7 @@ import { initialValues } from "../pages/dataSet/input-data";
 import { mobileDevice } from "../contexts/mobile-device";
 
 
-export default function Form({render, link, backLink, text, values, setValues, isError, handleRoute, submit}) {
+export default function Form({render, link, backLink, text, values, setValues, isError, handleRoute, submit, className}) {
     const {setBulkValidation, formData} = useContext(inputValues);
     const {isMobile} = useContext(mobileDevice);
     const [popUp, setPopUp] = useState(false)
@@ -44,11 +44,11 @@ export default function Form({render, link, backLink, text, values, setValues, i
         return res
     }
 
-    const button = <Button padding='18px 46px' type='submit' text={text ? text : 'no text'} onClick = {handleSubmit} size='20px'/>
+    const button = <Button padding={isMobile ? '12px 15px' : '18px 46px'} type='submit' text={text ? text : 'no text'} onClick = {handleSubmit} size={isMobile ? '18px' : '20px'}/>
 
     return (
-        <form className="form wrp" onSubmit={e => e.preventDefault()} onInvalid={e => e.preventDefault()}>
-            {isMobile && <Divider height='38px'/>}
+        <form className={`form wrp${className ? ` ${className}` : ''}`} onSubmit={e => e.preventDefault()} onInvalid={e => e.preventDefault()}>
+            {isMobile && <Divider height='30px'/>}
             <div className="form-content-wrap">
                 <div className="form-content flx flx-wrap">
                     {render}

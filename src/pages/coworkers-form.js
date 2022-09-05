@@ -24,7 +24,7 @@ export default function CoworkersForm({values, handleChange, handleRoute}) {
       }/>
       <Divider height='27px'/>
       <inputValues.Provider value = {{values, errors, setErrors, setBulkValidation, bulkValidation}}>
-        <Form link = 'laptop' handleRoute={handleRoute} text='შემდეგი' isError = {isError} render =
+        <Form className='coworkers-form' link = 'laptop' handleRoute={handleRoute} text='შემდეგი' isError = {isError} render =
           {
             coworkersInputs.map(e =>
               e.div ? isMobile ? null : e.div :

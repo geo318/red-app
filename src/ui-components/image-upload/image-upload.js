@@ -9,16 +9,19 @@ import Txt from "../text"
 import Button from "../button"
 import './image-upload.css'
 import Divider from "../divider"
+import uploadImage from "../../assets/images/mobile-upload-image.svg"
+import { mobileDevice } from "../../contexts/mobile-device"
 
 export default function ImageUpload({name, text, buttonText, handleChange, value, formData}) {
     const localImage = useMemo(()=> localStore('rdb-laptop-image'),[])
     const localImageData = useMemo(()=> localStore('rdb-laptop-image-data'),[])
     const [imageDetails, setImageDetails] = useState(localImageData)
     const [image, setImage] = useState(localImage)
+    const imageName = useMemo(()=> imageDetails?.name.split('.'),[image])
     const [dragging, setDragging] = useState(false)
-    const [imageData,setImageData] = useState(value || {})
     const [imageError, setImageError] = useState(false)
-    const { setErrors, bulkValidation } = useContext(inputValues)
+    const { bulkValidation } = useContext(inputValues)
+    const { isMobile } = useContext(mobileDevice)
     
     useEffect(() => {
         localStore('rdb-laptop-image', image)
@@ -47,7 +50,6 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
         const file = e.target.files[0]
         handleChange({target : {name : 'laptop_image', value : file}})
         formData.append('laptop_image', file)
-        setImageData(file)
         setImageDetails({name : file.name, size : file.size})
         readFile(file)
     }
@@ -57,7 +59,6 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
         if(!imageTypes.includes(file.type) || file.size === 0) {
             setImageError(true)
             setImage('')
-            setImageData({})
             return
         }
         setImageError(false)
@@ -85,13 +86,16 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
         event.preventDefault();
     }
 
-    const uploadButton = 
-        <Button padding='18px 72px' lineHeight='24px' text='ატვირთე' size='20px' type="button" className="upload-button">
-            <label className="flx flx-vc flx-hc pointer">
-                <input name={name} type='file' onChange={handleUpload}/>
-                {buttonText}
-            </label>
-        </Button>;
+    const uploadButton = (text) => {
+        return (
+            <Button padding={isMobile ? '12px 11px' : '18px 72px'} lineHeight={isMobile ? '22px' : '24px' }text='ატვირთე' size={isMobile ? '18px': '20px'} type="button" className="upload-button">
+                <label className="flx flx-vc flx-hc pointer">
+                    <input name={name} type='file' onChange={handleUpload}/>
+                    {text || buttonText}
+                </label>
+            </Button>
+        )
+    }
     return (
         <div className="upload-wrapper">
             <div className={`drag-area flx flx-vc flx-hc${dragging ? ' drag-active' : ''}${imageError || (bulkValidation && !image) ? ' border-image-error background-error' : image ? ' border-none' : ''}`} 
@@ -100,24 +104,32 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
                 onDragLeave={handleDrag}  
                 onDrop={handleDrop}
             >
+                {isMobile &&  <label className="flx flx-vc flx-hc pointer"><input name={name} type='file' onChange={handleUpload}/></label>}
                 {
                     ((bulkValidation && !image) || imageError) && 
-                    <div style={{'position':'absolute', 'top':54}}>
+                    <div style={{'position':'absolute', 'top': isMobile ? 'unset' : 54, 'bottom' : isMobile ? 0 : 'unset' }}>
                         <Icon render={error}/>
                         <Divider height='19px'/>
                     </div>
                 }
                 {
                     image ?
-                   
                     <img src={`${image}`} alt=''/> : 
                     <div className="flx-c flx-vc flx-hc">
+                        {   
+                            isMobile && 
+                            <>
+                                <Divider height='60px' width='100%'/>
+                                <Icon render={uploadImage}/>
+                                <Divider height='30px' width='100%'/>
+                            </>
+                        }
                         <Txt className={`${imageError || (bulkValidation && !image) ? 'error-text' : ''}`} 
-                            text = {text} size='20px' lineHeight='38px' bold='600'
+                            text = {text} size={isMobile ? '16px' : '20px'} lineHeight={isMobile ? '26px' : '38px'} bold={isMobile ? '400' : '600'}
                             style = {{'display': 'block','width':195,'margin':'0 auto', 'textAlign':'center'}}
                         />
                         <Divider height='65px'/>
-                        {uploadButton}
+                        { !isMobile && uploadButton() }
                     </div>
                 }
             </div>
@@ -129,16 +141,20 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
                         <span>
                             {image && <Icon render={success}/>}
                         </span>
-                        <Divider width='25px'/>
-                        <div className="info-file-name">{imageDetails?.name}</div>
-                        <Divider width='18px'/>
-                        <div className="info-file-size">{byteConverter(imageDetails?.size)}</div>
+                        {isMobile && <Divider width='15px'/>}
+                        <div className={`image-det-footer${isMobile ? ' flx-c': ''}`}>
+                            <Divider width='25px'/>
+                            <div className="info-file-name">{imageDetails?.name.length > 10 ? imageName?.[0].slice(0,8).concat('...',imageName?.[imageName.length-1]) : imageDetails?.name}</div>
+                            <Divider width='18px'/>
+                            <div className="info-file-size">{byteConverter(imageDetails?.size)}</div>
+                        </div>
                     </div>
                     <div className="flx flx-hr flx-vt">
-                        {uploadButton}
+                        {uploadButton('თავიდან ატვირთე')}
                     </div>
                 </div>
             }
+            {isMobile && <Divider height='40px'/>}
         </div>
     )
 }

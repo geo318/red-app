@@ -78,11 +78,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background: transparent;
 }
 
+.wrapper {
+    padding: 0;
+}
+
 .form {
     max-width: 1226px;
     margin: 0 auto;
     background-color: #fff;
     border-radius: 18px;
+    padding: 0 16px;
 }
 
 .form-wrapper {
@@ -186,7 +191,12 @@ input[name='laptop_price'] {
     }
     .form-content > .input {
         min-width: 100%;
-        margin: 0 0 26px!important;
+        margin-top: 0 !important;
+        margin-inline: 0!important;
+    }
+    .coworkers-form
+    .form-content > .input {
+        margin-bottom: 26px;
     }
     .form-content > .input-select {
         padding-bottom: 20px;
@@ -194,11 +204,43 @@ input[name='laptop_price'] {
     .form-content {
         padding-bottom: 0;
     }
-    .form-content-wrap > .flx-mid > div {
-        padding-top: 20px;
+    .form-content-wrap > .flx-mid > * {
+        padding-top: 30px;
     }
     .form-content-wrap .divider {
         padding-bottom: 13px;
     }
+    .divider-mobile {
+        display: block;
+        width: 100vw;
+        margin-right: -16px;
+        margin-left: -16px;
+        position: relative;
+        height: 34px;
+        background-color: #f6f6f6;
+        margin-bottom: 20px;
+    }
+    .divider-mobile:before,
+    .divider-mobile:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #fff;
+        height: 12px;
+    }
+    .divider-mobile:before {
+        border-radius: 0 0 12px 12px;
+    }
+    .divider-mobile:after {
+        border-radius: 12px 12px 0 0;
+        top: 22px;
+    }
+    .laptop-form
+    .form-content > .input {
+        margin-bottom: 26px !important;
+    }
+    .input-select:first-child {
+        margin-bottom: 0!important;
+    }
 }
-  
+

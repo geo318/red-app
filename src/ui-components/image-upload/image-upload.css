@@ -39,13 +39,16 @@
     width: 233px;
     height: 60px;
 }
-.upload-button input {
+.upload-button input,
+.drag-area > label > input {
     display: none;
 }
+.drag-area > label,
 .upload-button label {
     position: absolute;
     inset: 0;
 }
+
 .info-file-name {
     color: #202020
 }
@@ -57,4 +60,28 @@
 .img-info {
     font-size: 18px;
     line-height: 22px;
+}
+
+@media only screen and (max-width: 700px) {
+    .upload-wrapper, .drag-area {
+        width: 100%;
+    }
+    .drag-area {
+        height: 245px;
+    }
+    .upload-wrapper .divider {
+        padding: 0;
+    }
+    .upload-button > .button {
+        width: 187px;
+        height: 46px;
+    }
+    .image-det-footer {
+        font-size: 12;
+        color: #202020;
+    }
+    .laptop-form .form-content >
+    .input-select[data-id="2"] {
+        margin-bottom: 0!important;
+    }
 }
