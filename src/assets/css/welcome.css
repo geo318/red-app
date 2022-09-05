@@ -8,3 +8,7 @@
     display: block;
     padding: 0 16px
 }
+
+.welcome {
+    min-height: 900px;
+}

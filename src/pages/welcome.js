@@ -34,7 +34,7 @@ export default function Welcome() {
                     <Divider height={isMobile? '16px' : '26px'}/>
                     <Button text='ᲩᲐᲜᲐᲬᲔᲠᲔᲑᲘᲡ ᲡᲘᲐ' size='20px' link = "/laptop-list"/>
                 </div>
-                { isMobile && <Divider height='20px'/> }
+                { isMobile && <Divider height='40px'/> }
             </div>
         </div>
         </>
