@@ -58,12 +58,12 @@ export default function Input({ id, label, value, error, message, message_phone,
     }
     
     const conditionError = ((inputProps.required && inputProps.type !== 'radio') && (focus || bulkValidation) && (validation.pattern || validation.pattern_1 || validation.notEmpty))
-    const checkRadio = (inputProps.type === 'radio' && value === '');
+    const checkRadio = (inputProps.type === 'radio' && bulkValidation && value === '');
     const dropdownData = filter && data.length > 0 ? data.filter(e => values?.[filter] === e[filter]) : data;
     return (
         <>
             <div className={`input${ inputProps.type ? ` input-${sub_type || inputProps.type}` : '' }`} style={style||{'width':'100%'}} data-id={id}>
-                { label && <><Txt size='18px' bold='600' lineHeight='21px' className={`${checkRadio ? 'error-text flx' : ''}${conditionError ? 'error-text' : ''}`} text={`${label}`} render={ checkRadio && <Icon width='22px' render={errorSvg}/>}/><Divider height='8px'/></> }
+                { label && <><Txt size='18px' bold='500' lineHeight='21px' className={`${checkRadio ? 'error-text flx' : ''}${conditionError ? 'error-text' : ''}`} text={`${label}`} render={ checkRadio && <Icon width='22px' render={errorSvg}/>}/><Divider height='8px'/></> }
                 <div className={`input-wrap${conditionError ? ' error-border' : ''}${` ${sub_type || inputProps.type}-wrap`}`}>
                     {
                         (inputProps.type !== 'radio' && sub_type !== 'date') &&

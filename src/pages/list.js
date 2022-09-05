@@ -42,7 +42,7 @@ export default function List() {
                                 <Divider width={isMobile ? '16px' : '28px'}/>
                                 <div className="list-item-desc flx flx-vc">
                                     <div className="flx-c">
-                                        <Txt bold='600' size={isMobile ? '14px' : '18px'} lineHeight='21px' color='#2e2e2e' text={`${e.user?.name} ${e.user?.surname}`}/>
+                                        <Txt bold='500' size={isMobile ? '14px' : '18px'} lineHeight='21px' color='#2e2e2e' text={`${e.user?.name} ${e.user?.surname}`}/>
                                         <Divider height={isMobile ? '8px' : '18px'}/>
                                         <Txt bold='400' size='18px' lineHeight='21px' color='#2e2e2e' text={e.laptop?.name}/>
                                         <Divider height={isMobile ? '11px' : '40px'}/>

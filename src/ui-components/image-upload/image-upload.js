@@ -28,7 +28,6 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
       },[image])
 
     useEffect(()=> {
-        console.log(image,localImage)
         if(image)
         imageToBlob(image)
     },[image])
@@ -126,7 +125,7 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
                             </>
                         }
                         <Txt className={`${imageError || (bulkValidation && !image) ? 'error-text' : ''}`} 
-                            text = {text} size={isMobile ? '16px' : '20px'} lineHeight={isMobile ? '26px' : '38px'} bold={isMobile ? '400' : '600'}
+                            text = {text} size={isMobile ? '16px' : '20px'} lineHeight={isMobile ? '26px' : '38px'} bold={isMobile ? '400' : '500'}
                             style = {{'display': 'block','width':195,'margin':'0 auto', 'textAlign':'center'}}
                         />
                         <Divider height='65px'/>
@@ -143,7 +142,7 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
                             {image && <Icon render={success}/>}
                         </span>
                         {isMobile && <Divider width='15px'/>}
-                        <div className={`image-det-footer${isMobile ? ' flx-c': ''}`}>
+                        <div className={`image-det-footer${isMobile ? ' flx-c': ' flx-r'}`}>
                             <Divider width='25px'/>
                             <div className="info-file-name">{imageDetails?.name.length > 10 ? imageName?.[0].slice(0,8).concat('...',imageName?.[imageName.length-1]) : imageDetails?.name}</div>
                             <Divider width='18px'/>

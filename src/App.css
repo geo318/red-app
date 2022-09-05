@@ -2,7 +2,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'HelveticaNeue';
+  font-family: 'Helvetica Neue';
 }
 
 :root {
@@ -12,6 +12,7 @@
 
 body {
   color: #000;
+  font-family: 'Helvetica Neue';
 }
 
 .wrapper {
