@@ -14,7 +14,7 @@ export default function Welcome() {
     const {isMobile} = useContext(mobileDevice);
     return(
         <>
-            <div className="success flx flx-hc flx-vc" style={{'position':'fixed','inset':0,'height':'100vh'}}>
+            <div className="flx flx-hc flx-vc">
             <div className="welcome flx flx-hc flx-vc flx-c">
                 <div className="image-cont flx-c flx-vc">
                     {isMobile && <Divider height='40px'/>}
@@ -34,6 +34,7 @@ export default function Welcome() {
                     <Divider height={isMobile? '16px' : '26px'}/>
                     <Button text='ᲩᲐᲜᲐᲬᲔᲠᲔᲑᲘᲡ ᲡᲘᲐ' size='20px' link = "/laptop-list"/>
                 </div>
+                { isMobile && <Divider height='20px'/> }
             </div>
         </div>
         </>
