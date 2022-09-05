@@ -104,10 +104,10 @@ export default function LaptopInfo({link}) {
                                     </div>
                                     <div className="value-group flx-c flx-hr">
                                         {   
-                                            data.laptop ?
+                                            data?.laptop ?
                                             <>
-                                                <span>{data.laptop.name}</span>
-                                                <span>{dataSet?.brands?.filter(e => data.laptop.brand_id === e.id)[0].name}</span>
+                                                <span>{data.laptop?.name}</span>
+                                                <span>{dataSet?.brands?.filter(e => data.laptop?.brand_id === e.id)[0]?.name}</span>
                                                 <span>{data.laptop.ram}</span>
                                                 <span>{data.laptop.hard_drive_type}</span>
                                             </> :
