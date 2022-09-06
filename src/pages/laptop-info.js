@@ -83,7 +83,7 @@ export default function LaptopInfo({link}) {
                                                 <span>{dataSet?.teams?.filter(e => data.user.team_id === e.id)?.[0]?.name}</span>
                                                 <span>{dataSet?.positions?.filter(e => data.user.position_id === e.id)[0]?.name}</span>
                                                 <span>{data.user.email}</span>
-                                                <span>{data.user.phone_number.replace(/(?<=^.{4}|^.{7}|^.{9}|^.{11})/g,' ')}</span>
+                                                <span>{[...data.user.phone_number].map((e,i) => i===3 || i===6 || i=== 9 ? e.concat(' ') : e).join('')}</span>
                                             </> :
                                             <Spinner/> 
                                         }
