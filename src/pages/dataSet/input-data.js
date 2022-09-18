@@ -37,7 +37,7 @@ export const coworkersInputs = [
         message_1 : 'გამოიყენე ქართული ასოები',
       },
       message : 'მინიმუმ 2 სიმბოლო, ქართული ასოები',
-      style : {'maxWidth':'50%','marginRight':'22px','flexGrow':1}
+      style : {'maxWidth':'50%','paddingRight':'22px','flexGrow':1}
     },
     {
       id : 2,
@@ -53,7 +53,7 @@ export const coworkersInputs = [
         message_1 : 'გამოიყენე ქართული ასოები',
       },
       message : 'მინიმუმ 2 სიმბოლო, ქართული ასოები',
-      style : {'maxWidth':'50%','marginLeft':'22px','flexGrow':1}
+      style : {'maxWidth':'50%','paddingLeft':'22px','flexGrow':1}
     },
     {
       div: <Divider key='div-1' width='100%' height='50px' />
@@ -127,7 +127,7 @@ export const laptopInputs = [
         pattern : /^[A-Za-z0-9!@#$%^&*()_+=" "]{2,50}$/,
       },
       message : 'ლათინური ასოები, ციფრები, !@#$%^&*()_+= ',
-      style : {'maxWidth':'50%','marginRight':'22px','flexGrow':1}
+      style : {'maxWidth':'50%','paddingRight':'22px','flexGrow':1}
     },
     {
       id : 2,
@@ -138,7 +138,7 @@ export const laptopInputs = [
       placeholder : 'ლეპტოპის ბრენდი',
       required : true,
       data_url: 'brands',
-      style : {'maxWidth':'50%','marginLeft':'22px','flexGrow':1, 'marginTop':28}
+      style : {'maxWidth':'50%','paddingLeft':'22px','flexGrow':1, 'paddingTop':28}
     },
     {
       div: <Divider key='div-1' width='100%' height='50px' />
@@ -152,7 +152,7 @@ export const laptopInputs = [
       placeholder : 'CPU',
       required : true,
       data_url: 'cpus',
-      style : {'maxWidth':'33.3%','marginRight':'16px','flexGrow':1, 'marginTop':28}
+      style : {'maxWidth':'33.3%','paddingRight':'16px','flexGrow':1, 'paddingTop':28}
     },
     {
       id : 4,
@@ -164,7 +164,10 @@ export const laptopInputs = [
       label : 'CPU-ს ბირთვი',
       required : true,
       message : 'მხოლოდ ციფრები',
-      style : {'maxWidth':'33.3%','margin':'0 8px','flexGrow':1,}
+      error : {
+        pattern : /^[0-9]+/,
+      },
+      style : {'maxWidth':'33.3%','padding':'0 8px','flexGrow':1,}
     },
     {
       id : 5,
@@ -175,8 +178,11 @@ export const laptopInputs = [
       placeholder : '365',
       label : 'CPU-ს ნაკადი',
       required : true,
+      error : {
+        pattern : /^[0-9]+/,
+      },
       message : 'მხოლოდ ციფრები',
-      style : {'maxWidth':'33.3%','marginLeft':'16px','flexGrow':1,}
+      style : {'maxWidth':'33.3%','paddingLeft':'16px','flexGrow':1,}
     },
     {
       div: <Divider key='div-2' width='100%' height='50px' />
@@ -191,7 +197,10 @@ export const laptopInputs = [
       label : 'ლეპტოპის RAM (GB)',
       required : true,
       message : 'მხოლოდ ციფრები',
-      style : {'maxWidth':'50%','marginRight':'22px','flexGrow':1}
+      error : {
+        pattern : /^[0-9]+/,
+      },
+      style : {'maxWidth':'50%','paddingRight':'22px','flexGrow':1}
     },
     {
       id : 7,
@@ -200,7 +209,7 @@ export const laptopInputs = [
       radio_values : [{name: 'SSD', value: 'SSD'},{name: 'HDD', value: 'HDD'}],
       label : 'მეხსიერების ტიპი',
       required : true,
-      style : {'maxWidth':'50%','marginLeft':'22px','flexGrow':1}
+      style : {'maxWidth':'50%','paddingLeft':'22px','flexGrow':1}
     },
     {
       div: <Divider key='div-3' width='100%' height='50px' />
@@ -213,7 +222,7 @@ export const laptopInputs = [
       placeholder : 'დდ / თთ / წწწწ',
       label : 'შეძენის რიცხვი (არჩევითი)',
       required : false,
-      style : {'maxWidth':'50%','marginRight':'22px','flexGrow':1}
+      style : {'maxWidth':'50%','paddingRight':'22px','flexGrow':1}
     },
     {
       id : 9,
@@ -223,8 +232,11 @@ export const laptopInputs = [
       placeholder : '0000',
       label : 'ლეპტოპის ფასი',
       required : true,
+      error : {
+        pattern : /^[0-9]+/,
+      },
       message : 'მხოლოდ ციფრები',
-      style : {'maxWidth':'50%','marginLeft':'22px','flexGrow':1,}
+      style : {'maxWidth':'50%','paddingLeft':'22px','flexGrow':1,}
     },
     {
       div: <Divider key='div-4' width='100%' height='50px' />
@@ -236,6 +248,6 @@ export const laptopInputs = [
       radio_values : [{name: 'ახალი', value: 'new'},{name: 'მეორადი', value: 'used'}],
       label : 'ლეპტოპის მდგომარეობა',
       required : true,
-      style : {'maxWidth':'50%','marginRight':'22px','flexGrow':1,}
+      style : {'maxWidth':'50%','paddingRight':'22px','flexGrow':1,}
     },
 ]

@@ -9,6 +9,7 @@ import errorSvg from "../assets/images/error.svg"
 import InputDate from "./input-date";
 import Txt from "./text";
 import Divider from "./divider";
+import { matchRoutes } from "react-router-dom";
 
 export default function Input({ id, label, value, error, message, message_phone, handleChange, sub_type, data_url, radio_values, prop, filter, style, ...inputProps }) {
     const {values, bulkValidation, setBulkValidation} = useContext(inputValues);
@@ -106,7 +107,7 @@ export default function Input({ id, label, value, error, message, message_phone,
                 }
                 {
                     (conditionError && inputProps.type !== 'radio' && sub_type !== 'date' &&
-                    <Txt size='14px' lineHeight='21px' color='#e52f2f' error = { `${(validation.pattern && `${error?.message || message}`) || message || ''}${validation.pattern && validation.pattern_1 ? ', ' : ''}${validation.pattern_1 ? `${error?.message_1}` : ''}` } />) || 
+                    <Txt size='14px' lineHeight='21px' color='#e52f2f' error = { `${(validation.pattern && `${error?.message || message}`) || ''}${validation.pattern && validation.pattern_1 ? ', ' : ''}${validation.pattern_1 ? `${error?.message_1}` : ''}` } />) || 
                     (message && <Txt size='14px' lineHeight='21px' bold='300' color='#2e2e2e' text= {message}/>) 
                 }
             </div>
