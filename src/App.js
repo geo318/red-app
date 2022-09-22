@@ -49,7 +49,7 @@ function App() {
             </Route>
             <Route path="/laptop-list/:id" element = {<LaptopInfo/>}/>
             <Route exact path="/laptop-list" element = {<List/>} />
-            <Route path="/*" element = {<Error/>} />
+            {/* <Route path="/*" element = {<Error/>} /> */}
           </Routes>
         </div>
         </mobileDevice.Provider>

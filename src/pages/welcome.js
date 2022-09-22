@@ -23,7 +23,7 @@ export default function Welcome() {
                     {
                         <Icon render={(isMobile && welcomeMobile) || welcome}/> ||
                         <>
-                            <img alt='' src={loadingImage}/>
+                            <img alt='' src={loadingImage} loading='lazy'/>
                             <Spinner color = "#62a1eb" size = '70px'/>
                         </>
                     }

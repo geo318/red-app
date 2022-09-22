@@ -35,9 +35,9 @@ export default function List() {
                             <div key = {e.laptop.id} className="laptop-list-item flx-r" data-id = {e.laptop.id}>
                                 <div className="image-wrapper">
                                     {
-                                        e.laptop.image ?
-                                        <img alt='' src={`https://pcfy.redberryinternship.ge/${e.laptop?.image}`}/>:
-                                        <Spinner/>
+                                        e?.laptop && 
+                                        <img width="200" height="200" alt='' src={`https://pcfy.redberryinternship.ge/${e.laptop?.image}`} loading="lazy"/>
+                                        
                                     }
                                 </div>
                                 <Divider width={isMobile ? '16px' : '28px'}/>
