@@ -7,7 +7,6 @@ import CoworkersForm from './pages/coworkers-form';
 import LaptopForm from './pages/laptop-form';
 import List from './pages/list';
 import LaptopInfo from './pages/laptop-info';
-import Error from './pages/error';
 import { PrivateRoutes } from './helpers/privateRoutes';
 import { localStore } from './helpers/local-storage';
 import { initialValues } from './pages/dataSet/input-data';

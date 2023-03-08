@@ -6,7 +6,6 @@ import Divider from "../ui-components/divider";
 import { token, apiUrl } from "../api/url-params";
 import { mobileDevice } from "../contexts/mobile-device";
 import "../assets/css/list.css"
-import Spinner from "../ui-components/spinner/spinner";
 
 export default function List() {
     const [data, setData] = useState([])
@@ -20,7 +19,7 @@ export default function List() {
                 const dataToFetch = await getData(urlToFetch);
                 setData(dataToFetch?.data)
            })()
-    },[])
+    },[urlToFetch])
 
     return(
         <>  

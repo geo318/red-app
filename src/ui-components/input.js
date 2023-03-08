@@ -1,6 +1,6 @@
 import { apiUrl } from "../api/url-params";
 import { localStore } from "../helpers/local-storage";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { inputValues } from "../contexts/input-values";
 import { getData } from "../api/formdata";
 import Select from "./select/select-dropdown";
@@ -9,7 +9,6 @@ import errorSvg from "../assets/images/error.svg"
 import InputDate from "./input-date";
 import Txt from "./text";
 import Divider from "./divider";
-import { matchRoutes } from "react-router-dom";
 
 export default function Input({ id, label, value, error, message, message_phone, handleChange, sub_type, data_url, radio_values, prop, filter, style, ...inputProps }) {
     const {values, bulkValidation, setBulkValidation} = useContext(inputValues);
@@ -31,12 +30,18 @@ export default function Input({ id, label, value, error, message, message_phone,
             }
         }
         error?.pattern_1 ? setValidation({pattern_1: true, pattern : true}) : setValidation({pattern : true})
-    },[])
+    },[data.length, data_url, error?.pattern_1])
 
     useEffect(() => {
         if(filter && data.some(e => e[filter] !== values?.[filter]))
         handleChange({target : {name : inputProps.name, value : ''}})
-    },[values?.[filter]])
+    },[data, filter, handleChange, inputProps.name, values])
+
+    const checkError = useCallback(()=>(pattern, val) => {
+        const bool = pattern === 'required' ? /.+/.test(val) : error[pattern].test(val)
+        if(pattern !== 'required') setValidation(curr=> curr? {...curr, [pattern] : !bool} : {curr})
+        if(pattern === 'required') setValidation({notEmpty : !bool})
+    },[error])
 
     useEffect(() => {
         if(error && (error.pattern || error.pattern_1)) {
@@ -45,13 +50,7 @@ export default function Input({ id, label, value, error, message, message_phone,
             return
         }
         if(inputProps.required && inputProps.type !== 'radio') checkError('required', value)       
-    },[value])
-
-    const checkError = (pattern, val) => {
-        const bool = pattern === 'required' ? /.+/.test(val) : error[pattern].test(val)
-        if(pattern !== 'required') setValidation(curr=> curr? {...curr, [pattern] : !bool} : {curr})
-        if(pattern === 'required') setValidation({notEmpty : !bool})
-    }
+    },[value, checkError, error, inputProps.required, inputProps.type])
 
     const handleFocus = () => {
         setFocus(true)

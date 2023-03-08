@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useMemo } from "react"
+import { useState, useContext, useEffect, useMemo, useCallback } from "react"
 import { byteConverter } from "../../helpers/byte-converter"
 import Icon from "../icon"
 import success from "../../assets/images/success.svg"
@@ -17,7 +17,7 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
     const localImageData = useMemo(()=> localStore('rdb-laptop-image-data'),[])
     const [imageDetails, setImageDetails] = useState( (localImage != null && localImage !== 'nullify') ? localImageData : null)
     const [image, setImage] = useState((localImage != null && localImage !== 'nullify') ? localImage : null)
-    const imageName = useMemo(()=> imageDetails?.name.split('.'),[image])
+    const imageName = useMemo(()=> imageDetails?.name.split('.'),[imageDetails])
     const [dragging, setDragging] = useState(false)
     const [imageError, setImageError] = useState(false)
     const { bulkValidation } = useContext(inputValues)
@@ -27,10 +27,16 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
         localStore('rdb-laptop-image', image)
       },[image])
 
+    const imageToBlob = useCallback(()=> async (base64) => {
+        const base64Response = await fetch(base64)
+        const blob = await base64Response.blob();
+        handleChange({target : {name : 'laptop_image', value : blob}})
+    },[handleChange])
+
     useEffect(()=> {
         if(image)
         imageToBlob(image)
-    },[image])
+    },[image, imageToBlob])
 
     useEffect(() => {
         localStore('rdb-laptop-image-data', imageDetails)
@@ -38,12 +44,6 @@ export default function ImageUpload({name, text, buttonText, handleChange, value
     
     const handleDrag = () => {
         setDragging(e=>!e)
-    }
-
-    const imageToBlob = async (base64) => {
-        const base64Response = await fetch(base64)
-        const blob = await base64Response.blob();
-        handleChange({target : {name : 'laptop_image', value : blob}})
     }
 
     const handleUpload = async (e) => {

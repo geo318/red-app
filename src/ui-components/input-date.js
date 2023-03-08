@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 export default function InputDate({placeholder, value, className, handleChange, ...inputProps}) {
-    const [styleText, setStyleText] = useState({'visibility':'visible', 'position':'absolute', 'inset':0});
+    const [styleText] = useState({'visibility':'visible', 'position':'absolute', 'inset':0});
     const [styleDate, setStyleDate] = useState({'opacity': value ? 1 : 0, 'userSelect':'none'});
 
     return (

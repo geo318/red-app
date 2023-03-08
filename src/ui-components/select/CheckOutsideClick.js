@@ -1,18 +1,18 @@
-import {useRef, useEffect} from 'react'
+import {useRef, useEffect, useCallback} from 'react'
 
-export default function CheckOutsideClick({ocClickOustise, children}) {
+export default function CheckOutsideClick({onClickOutside, children}) {
     const ref = useRef()
 
-    const handleClickOutside = e => {
+    const handleClickOutside = useCallback(e => {
         if(ref.current && !ref.current.contains(e.target)) {
-            ocClickOustise && ocClickOustise()
+            onClickOutside && onClickOutside()
         }
-    }
+    },[onClickOutside])
 
     useEffect(()=> {
         document.addEventListener('click', handleClickOutside, true)
         return () => document.removeEventListener('click', handleClickOutside, true)
-    },[]);
+    },[handleClickOutside]);
 
     if(!children) return null
     return <div ref={ref}>{children}</div>
